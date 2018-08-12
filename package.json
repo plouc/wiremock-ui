@@ -1,0 +1,48 @@
+{
+  "name": "ui",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:5000",
+  "dependencies": {
+    "@types/inline-style-prefixer": "^3.0.1",
+    "@types/lodash": "^4.14.116",
+    "@types/lunr": "^2.1.6",
+    "@types/react-redux": "^6.0.6",
+    "@types/recompose": "^0.26.4",
+    "@types/socket.io-client": "^1.4.32",
+    "@types/yup": "^0.24.7",
+    "brace": "^0.11.1",
+    "edikit": "*",
+    "eventemitter3": "^3.1.0",
+    "formik": "^1.0.2",
+    "lodash": "^4.17.10",
+    "lunr": "^2.3.1",
+    "react": "^16.4.2",
+    "react-ace": "^6.1.4",
+    "react-dom": "^16.4.2",
+    "react-feather": "^1.1.1",
+    "react-redux": "^5.0.7",
+    "react-scripts-ts": "2.17.0",
+    "react-split-pane": "^0.1.82",
+    "recompose": "^0.28.2",
+    "redux": "^4.0.0",
+    "rxjs": "^6.2.2",
+    "styled-components": "^3.4.2",
+    "typesafe-actions": "^2.0.4",
+    "yup": "^0.26.2"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.1",
+    "@types/node": "^10.5.7",
+    "@types/react": "^16.4.8",
+    "@types/react-dom": "^16.0.7",
+    "redux-devtools-extension": "^2.13.5",
+    "typescript": "^3.0.1"
+  }
+}
