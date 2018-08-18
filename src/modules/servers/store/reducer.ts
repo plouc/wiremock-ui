@@ -29,7 +29,7 @@ const reducer: Reducer<IServersState> = (state = initialState, action) => {
                 ...state,
                 servers: [
                     ...state.servers,
-                    action.payload,
+                    action.payload.server,
                 ]
             }
         }

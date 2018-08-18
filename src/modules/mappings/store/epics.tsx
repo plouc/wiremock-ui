@@ -1,8 +1,11 @@
+import * as React from 'react'
 import { Epic, combineEpics } from 'redux-observable'
-import {of, EMPTY, from} from 'rxjs'
-import { mergeMap, map } from 'rxjs/operators'
-import { removeContentFromAllPanesAction } from 'edikit'
-import { IData } from '../../../types'
+import { of, EMPTY, from, concat } from 'rxjs'
+import { mergeMap, map, flatMap } from 'rxjs/operators'
+import {
+    removeContentFromAllPanesAction,
+    triggerNotification,
+} from 'edikit'
 import {
     getMappings,
     getMapping,
@@ -10,6 +13,7 @@ import {
     deleteMapping,
 } from '../../../api'
 import { IApplicationState } from '../../../store'
+import { getMappingLabel } from '../dto'
 import {
     loadServerMappingsRequest,
     loadServerMappingsSuccess,
@@ -77,18 +81,29 @@ export const fetchMappingsEpic: Epic<MappingsAction, any, IApplicationState> = (
 export const updateMappingEpic: Epic<MappingsAction, any, IApplicationState> = (action$, state$) =>
     action$.ofType(MappingsActionTypes.UPDATE_MAPPING_REQUEST)
         .pipe(
-            mergeMap(({ payload }: IUpdateMappingRequestAction) => {
+            flatMap(({ payload }: IUpdateMappingRequestAction) => {
                 const server = state$.value.servers.servers.find(
                     s => s.name === payload.serverName
                 )
                 if (server === undefined) return EMPTY
 
-                return updateMapping(server, payload.mapping).pipe(
-                    map(({ response: mapping }) => updateMappingSuccess(
-                        payload.serverName,
-                        payload.mappingId,
-                        mapping
-                    ))
+                return concat(
+                    updateMapping(server, payload.mapping).pipe(
+                        map(({ response: mapping }) => updateMappingSuccess(
+                            payload.serverName,
+                            payload.mappingId,
+                            mapping
+                        ))
+                    ),
+                    of(triggerNotification({
+                        type: 'success',
+                        content: (
+                            <div>
+                                mapping <strong>{getMappingLabel(payload.mapping)}</strong> successfully saved
+                            </div>
+                        ),
+                        ttl: 2000,
+                    }))
                 )
             })
         )

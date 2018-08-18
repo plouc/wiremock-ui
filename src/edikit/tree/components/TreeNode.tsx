@@ -9,7 +9,6 @@ const iconSize = 12
 export interface ITreeNodeProps<NodeData> {
     node: Node
     openedIds: string[]
-    currentIds: string[]
     depth: number
     theme: any
     onClick: TreeClickHandler<NodeData>
@@ -30,7 +29,6 @@ class TreeNode<NodeData> extends React.Component<ITreeNodeProps<NodeData>> {
         const {
             node,
             openedIds,
-            currentIds,
             depth,
             onClick,
             getIcon,
@@ -83,7 +81,6 @@ class TreeNode<NodeData> extends React.Component<ITreeNodeProps<NodeData>> {
                                 key={child.id}
                                 node={child}
                                 openedIds={openedIds}
-                                currentIds={currentIds}
                                 onClick={onClick}
                                 getIcon={getIcon}
                                 depth={depth + 1}

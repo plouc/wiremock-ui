@@ -153,7 +153,13 @@ const theme: ITheme = {
                 `,
             },
         },
-    }
+    },
+    notifications: {
+        item: {
+            background: '#222',
+            color: '#fff',
+        },
+    },
 }
 
 export default theme

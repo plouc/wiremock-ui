@@ -8,7 +8,6 @@ export interface ITreeProps<NodeData> {
     onClick: TreeClickHandler<NodeData>,
     getIcon?: TreeIconGetter<NodeData>
     openedIds: string[]
-    currentIds: string[]
 }
 
 export interface ITreeState<NodeData> {
@@ -20,7 +19,6 @@ export default class Tree<NodeData> extends React.Component<ITreeProps<NodeData>
         const {
             root,
             openedIds,
-            currentIds,
             onClick,
             getIcon
         } = this.props
@@ -30,7 +28,6 @@ export default class Tree<NodeData> extends React.Component<ITreeProps<NodeData>
                 <TreeNode
                     node={root}
                     openedIds={openedIds}
-                    currentIds={currentIds}
                     onClick={onClick}
                     getIcon={getIcon}
                     depth={0}

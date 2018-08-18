@@ -1,7 +1,7 @@
 import * as React from 'react'
 import SplitPane from 'react-split-pane'
 import { ThemeProvider } from 'styled-components'
-import {createPaneManager, IPaneContent} from 'edikit'
+import { createPaneManager, IPaneContent, NotificationsContainer } from 'edikit'
 import themes from '../../../themes'
 import { ISettings, settingsContentTypes } from '../../settings'
 import { serversContentTypes } from '../../servers'
@@ -56,6 +56,7 @@ export default class App extends React.Component<IAppProps> {
                             <PaneManager/>
                         </SplitPane>
                     </Inner>
+                    <NotificationsContainer/>
                 </Container>
             </ThemeProvider>
         )

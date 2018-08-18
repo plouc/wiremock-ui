@@ -17,7 +17,6 @@ export interface IExplorerProps {
 
 export interface IExplorerState {
     openedIds: string[]
-    currentIds: string[]
 }
 
 class Explorer extends React.Component<IExplorerProps, IExplorerState> {
@@ -26,7 +25,6 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
 
         this.state = {
             openedIds: ['root'],
-            currentIds: []
         }
     }
 
@@ -86,6 +84,15 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
             }
         }
 
+        if (node.type === 'server.create') {
+            addContentToCurrentPane({
+                id: 'server.create',
+                type: 'server.create',
+                isCurrent: true,
+                isUnique: true,
+            })
+        }
+
         let openedIds
         if (this.state.openedIds.includes(node.id)) {
             openedIds = this.state.openedIds.filter(id => id !== node.id)
@@ -100,13 +107,12 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
 
     render() {
         const { tree } = this.props
-        const { openedIds, currentIds } = this.state
+        const { openedIds } = this.state
 
         return (
             <Tree
                 root={tree}
                 openedIds={openedIds}
-                currentIds={currentIds}
                 getIcon={this.getTreeNodeIcon}
                 onClick={this.handleNodeClick}
             />

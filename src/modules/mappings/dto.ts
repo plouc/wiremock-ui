@@ -178,3 +178,8 @@ export const getMappingUrl = (mapping: IMapping): string => {
 
     return url
 }
+
+export const getMappingLabel = (mapping: IMapping): string => {
+    if (mapping.name !== undefined) return mapping.name
+    return `${mapping.request.method} ${getMappingUrl(mapping)}`
+}

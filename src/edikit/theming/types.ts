@@ -151,6 +151,14 @@ export interface IThemeForm {
     }
 }
 
+export interface IThemeNotifications {
+    item: {
+        background?: string
+        color?: string
+        css?: any
+    }
+}
+
 export interface IThemeEditor {
     theme: string
 }
@@ -165,4 +173,5 @@ export interface ITheme {
     builder: IThemeBuilder
     editor: IThemeEditor
     form: IThemeForm
+    notifications: IThemeNotifications
 }
