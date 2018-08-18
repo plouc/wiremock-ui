@@ -8,4 +8,12 @@ An unofficial UI for [WireMock](http://wiremock.org/).
 
 ![UI screenshot](https://raw.githubusercontent.com/plouc/wiremock-ui/master/screenshots/ui_solarized_dark.png)
 
+## Features
+
+- supports multi wiremock servers
+- create/edit/delete wiremock stubs
+- json or visual mode
+- theming
+- support multiple panes
+
 ![UI screenshot](https://raw.githubusercontent.com/plouc/wiremock-ui/master/screenshots/ui_white.png)
