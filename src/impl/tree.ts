@@ -4,16 +4,12 @@ import {
     TreeClickHandler as BaseTreeClickHandler,
     TreeIconGetter as BaseTreeIconGetter,
 } from 'edikit'
+import { IData } from '../types'
 
-export interface IWithData {
-    server: string
-    mappingIndex?: number
-}
+export interface ITreeNode extends BaseTreeNode<IData> {}
 
-export interface ITreeNode extends BaseTreeNode<IWithData> {}
+export interface ITreeClickHandler extends BaseTreeClickHandler<IData> {}
 
-export interface ITreeClickHandler extends BaseTreeClickHandler<IWithData> {}
+export interface ITreeIconGetter extends BaseTreeIconGetter<IData> {}
 
-export interface ITreeIconGetter extends BaseTreeIconGetter<IWithData> {}
-
-export class Tree extends BaseTree<IWithData> {}
+export class Tree extends BaseTree<IData> {}

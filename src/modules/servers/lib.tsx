@@ -17,17 +17,17 @@ export const serversToTree = (servers: IServer[]): ITreeNode => ({
                 type: 'mappings',
                 label: 'mappings',
                 data: {
-                    server: server.name
+                    serverName: server.name
                 },
-                children: server.mappings.map((mapping, i) => ({
+                children: server.mappings.map(mapping => ({
                     // id isn't guaranteed to be unique
                     // and this property is used for React `key`
-                    id: `${mapping.id}.${i}`,
+                    id: mapping.id,
                     type: 'mapping',
                     label: `${mapping.request.method} ${mapping.request.url}`,
                     data: {
-                        server: server.name,
-                        mappingIndex: mapping.index
+                        serverName: server.name,
+                        mappingId: mapping.id,
                     },
                 }))
             }]

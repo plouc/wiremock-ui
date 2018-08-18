@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Formik, FormikProps } from 'formik'
 import { ArrowRight, Slash } from 'react-feather'
 import * as Yup from 'yup'
-import { Button, Input, Builder, BuilderLabel, Block } from 'edikit'
+import { Button, Input } from 'edikit'
 import { Container, Title } from './CreateServer_styled'
 import { IServer } from '../types'
 
@@ -14,7 +14,8 @@ interface IFormValues {
 }
 
 export interface ICreateServerProps {
-    addServer: (server: Pick<IServer, 'name' | 'url' | 'port'>) => void
+    createServer: (server: Pick<IServer, 'name' | 'url' | 'port'>) => void
+    close: () => void
 }
 
 const Form = styled.div`
@@ -36,39 +37,9 @@ const SubGrid = styled.div`
     align-items: top;
 `
 
-const withLink = true
-
 class CreateServer extends React.Component<ICreateServerProps> {
     render() {
-        const { addServer } = this.props
-
-        return (
-            <Builder
-                title="Mock Builder"
-                subtitle="19047fd7-73ee-3bb8-8a5a-20e7bd16ddef"
-            >
-                <BuilderLabel withLink={withLink}>
-                    Request
-                </BuilderLabel>
-                <Block title="Request" withLink={withLink}>
-                    <Block title="Request" withLink={withLink}>
-                        content
-                    </Block>
-                    <Block title="Request" withLink={withLink}>
-                        content
-                    </Block>
-                </Block>
-                <Block title="Other" withLink={withLink}/>
-                <BuilderLabel withLink={withLink}>
-                    Body
-                </BuilderLabel>
-                <Block title="Body" withLink={withLink}>
-                    <Block title="Body">
-                        content
-                    </Block>
-                </Block>
-            </Builder>
-        )
+        const { createServer } = this.props
 
         return (
             <Container>
@@ -96,7 +67,7 @@ class CreateServer extends React.Component<ICreateServerProps> {
                                 .max(65535)
                         })}
                         onSubmit={(values: IFormValues) => {
-                            addServer({
+                            createServer({
                                 ...values,
                                 port: values.port !== '' ? Number(values.port) : undefined
                             })

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div`
     height: 100%;
     width: 100%;
-    padding: 16px 32px;
+    padding: 9px 16px;
     background: ${props => props.theme.pane.body.background};
     ${props => props.theme.pane.body.css}
 `
