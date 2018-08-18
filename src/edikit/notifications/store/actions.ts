@@ -3,6 +3,11 @@ import uuid from '../../util/uuid'
 import { INotification } from '../types'
 import { NotificationsActionTypes } from './types'
 
+export interface ITriggerNotification extends Pick<INotification, 'content' | 'ttl'> {
+    id?: string
+    type?: 'default' | 'success' | 'warning' | 'danger'
+}
+
 export interface ITriggerNotificationAction {
     type: NotificationsActionTypes.TRIGGER_NOTIFICATION
     payload: {
@@ -13,11 +18,12 @@ export interface ITriggerNotificationAction {
 export const triggerNotification = createAction(
     NotificationsActionTypes.TRIGGER_NOTIFICATION,
     resolve => (
-        notification: Pick<INotification, 'type' | 'content' | 'ttl'>
+        notification: ITriggerNotification
     ) => resolve({
         notification: {
-            ...notification,
             id: uuid(),
+            type: 'default',
+            ...notification,
         },
     })
 )

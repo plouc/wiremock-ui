@@ -1,7 +1,9 @@
+import * as React from 'react'
 import { action } from 'typesafe-actions'
 import { IAction } from '../../../store'
 import { IServer } from '../../servers'
 import { IMapping } from '../types'
+import { getMappingLabel } from '../dto'
 import { MappingsActionTypes } from './types'
 
 export interface ILoadServerMappingsAction extends IAction {
@@ -180,6 +182,17 @@ export const updateMappingSuccess = (
         serverName,
         mappingId,
         mapping,
+    },
+    {
+        notification: {
+            type: 'success',
+            content: (
+                <div>
+                    mapping <strong>{getMappingLabel(mapping)}</strong> successfully saved
+                </div>
+            ),
+            ttl: 2000,
+        },
     }
 )
 

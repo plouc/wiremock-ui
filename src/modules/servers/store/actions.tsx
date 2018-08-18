@@ -1,3 +1,4 @@
+import * as React from 'react'
 import { action } from 'typesafe-actions'
 import { ServersActionTypes } from './types'
 import { IServer } from '../types'
@@ -21,7 +22,18 @@ export interface ICreateServerAction {
 
 export const createServer = (server: Pick<IServer, 'name' | 'url' | 'port'>) => action(
     ServersActionTypes.CREATE_SERVER,
-    { server }
+    { server },
+    {
+        notification: {
+            type: 'success',
+            content: (
+                <div>
+                    server <strong>{server.name}</strong> successfully created
+                </div>
+            ),
+            ttl: 3000,
+        },
+    }
 )
 
 export interface ISelectServerAction {

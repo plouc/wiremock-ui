@@ -16,7 +16,7 @@ const Item = styled.div<IItemProps>`
     margin-top: 9px;
     font-size: 13px;
     border-radius: 1px;
-    padding: 5px 12px 5px 15px;
+    padding: 7px 12px 7px 15px;
     background: ${props => props.theme.notifications.item.background || 'transparent'};
     ${props => props.theme.notifications.item.css}
     

@@ -1,11 +1,7 @@
-import * as React from 'react'
 import { Epic, combineEpics } from 'redux-observable'
-import { of, EMPTY, from, concat } from 'rxjs'
+import { of, EMPTY, from } from 'rxjs'
 import { mergeMap, map, flatMap } from 'rxjs/operators'
-import {
-    removeContentFromAllPanesAction,
-    triggerNotification,
-} from 'edikit'
+import { removeContentFromAllPanesAction } from 'edikit'
 import {
     getMappings,
     getMapping,
@@ -13,7 +9,6 @@ import {
     deleteMapping,
 } from '../../../api'
 import { IApplicationState } from '../../../store'
-import { getMappingLabel } from '../dto'
 import {
     loadServerMappingsRequest,
     loadServerMappingsSuccess,
@@ -87,23 +82,12 @@ export const updateMappingEpic: Epic<MappingsAction, any, IApplicationState> = (
                 )
                 if (server === undefined) return EMPTY
 
-                return concat(
-                    updateMapping(server, payload.mapping).pipe(
-                        map(({ response: mapping }) => updateMappingSuccess(
-                            payload.serverName,
-                            payload.mappingId,
-                            mapping
-                        ))
-                    ),
-                    of(triggerNotification({
-                        type: 'success',
-                        content: (
-                            <div>
-                                mapping <strong>{getMappingLabel(payload.mapping)}</strong> successfully saved
-                            </div>
-                        ),
-                        ttl: 2000,
-                    }))
+                return updateMapping(server, payload.mapping).pipe(
+                    map(({ response: mapping }) => updateMappingSuccess(
+                        payload.serverName,
+                        payload.mappingId,
+                        mapping
+                    ))
                 )
             })
         )
