@@ -9,7 +9,7 @@ interface IMappingProps {
     serverName:  string
     mappingId: string
     server?: IServer
-    mapping: IMapping
+    mapping?: IMapping
     isFetching: boolean
     isCreating: boolean
     isUpdating: boolean
@@ -67,7 +67,7 @@ export default class Mapping extends React.Component<IMappingProps, IMappingStat
         } = this.props
         const { mode } = this.state
 
-        if (workingCopy === undefined) return null
+        if (mapping === undefined || workingCopy === undefined) return null
 
         return (
             <Wrapper>

@@ -98,14 +98,6 @@ export const fetchMappingSuccess = (
     }
 )
 
-
-
-
-
-
-
-
-
 export interface IInitMappingWorkingCopyAction extends IAction {
     type: MappingsActionTypes.INIT_MAPPING_WORKING_COPY
     payload: {

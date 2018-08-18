@@ -51,15 +51,17 @@ const mapStateToProps = (
         if (mappings !== undefined) {
             mappings.ids.forEach(mappingId => {
                 const mapping = mappings.byId[mappingId].mapping
-                mappingsNode.children!.push({
-                    id: mapping.id,
-                    type: 'mapping',
-                    label: mapping.name || `${mapping.request.method} ${getMappingUrl(mapping)}`,
-                    data: {
-                        serverName: server.name,
-                        mappingId: mapping.id,
-                    },
-                })
+                if (mapping !== undefined) {
+                    mappingsNode.children!.push({
+                        id: mapping.id,
+                        type: 'mapping',
+                        label: mapping.name || `${mapping.request.method} ${getMappingUrl(mapping)}`,
+                        data: {
+                            serverName: server.name,
+                            mappingId: mapping.id,
+                        },
+                    })
+                }
             })
         }
 

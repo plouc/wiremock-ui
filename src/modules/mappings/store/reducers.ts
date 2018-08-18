@@ -4,7 +4,7 @@ import { MappingsAction } from './actions'
 import { IMapping } from '../types'
 
 export interface IMappingState {
-    mapping: IMapping
+    mapping?: IMapping
     workingCopy?: IMapping
     isFetching: boolean
     isCreating: boolean
@@ -27,7 +27,7 @@ export interface IServerMappingsState {
     byId: IServerMappingsStateById
 }
 
-const byMapping = (
+export const mappingReducer = (
     state: IMappingState,
     action: MappingsAction
 ): IMappingState => {
@@ -82,7 +82,7 @@ const byMapping = (
     }
 }
 
-const byServer = (
+export const mappingsByServerReducer = (
     state: IServerMappingsState = {
         isLoading: false,
         haveBeenLoaded: false,
@@ -130,7 +130,7 @@ const byServer = (
                 ...state,
                 byId: {
                     ...state.byId,
-                    [action.payload.mappingId]: byMapping(
+                    [action.payload.mappingId]: mappingReducer(
                         state.byId[action.payload.mappingId],
                         action
                     )
@@ -176,7 +176,7 @@ export const mappingsReducer = (
         case MappingsActionTypes.DELETE_MAPPING_SUCCESS:
             return {
                 ...state,
-                [action.payload.serverName]: byServer(
+                [action.payload.serverName]: mappingsByServerReducer(
                     state[action.payload.serverName],
                     action
                 )

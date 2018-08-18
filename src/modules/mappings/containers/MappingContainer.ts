@@ -20,7 +20,7 @@ interface IOwnProps {
 
 interface IPropsFromState {
     server?: IServer
-    mapping: IMapping
+    mapping?: IMapping
     workingCopy?: IMapping
     isFetching: boolean
     isCreating: boolean
