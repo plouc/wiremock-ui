@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { withTheme } from 'styled-components'
 import { Folder, ChevronRight, ChevronDown } from 'react-feather'
-import { Icons, Item } from './TreeNode_styled'
-import { ITreeNode as Node, TreeClickHandler, TreeIconGetter} from '../'
+import { Icons, Item, CurrentIndicator } from './TreeNode_styled'
+import { ITreeNode as Node, TreeClickHandler, TreeIconGetter } from '../'
 
 const iconSize = 12
 
@@ -58,7 +58,7 @@ class TreeNode<NodeData> extends React.Component<ITreeNodeProps<NodeData>> {
             <React.Fragment>
                 <Item
                     isDir={!!(node.children && node.children.length > 0)}
-                    // isCurrent={node.isCurrent}
+                    isCurrent={node.isCurrent}
                     depth={depth}
                     onClick={this.handleClick}
                 >
@@ -74,6 +74,7 @@ class TreeNode<NodeData> extends React.Component<ITreeNodeProps<NodeData>> {
                     <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {node.label}
                     </span>
+                    {node.isCurrent === true && <CurrentIndicator/>}
                 </Item>
                 {node.children && node.children.length > 0 && isOpened && (
                     <React.Fragment>

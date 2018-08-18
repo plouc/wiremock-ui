@@ -1,5 +1,5 @@
 import * as React from 'react'
-import themes from '../../../impl/themes'
+import themes from '../../../themes'
 import { ISettings } from '../types'
 import { Container, Grid, Title, Item } from './Settings_styled'
 

@@ -45,7 +45,7 @@ const byNamespace = <Data>(
                 ),
             }
 
-        case PanesActionTypes.ADD_CURRENT_PANE_CONTENT:
+        case PanesActionTypes.ADD_CONTENT_TO_CURRENT_PANE:
             return {
                 panes: addContentToCurrentPane<Data>(
                     state.panes,
@@ -100,7 +100,7 @@ export const panesReducer = <Data>() => (
     switch (action.type) {
         case PanesActionTypes.INIT_PANES_NAMESPACE:
         case PanesActionTypes.SET_CURRENT_PANE:
-        case PanesActionTypes.ADD_CURRENT_PANE_CONTENT:
+        case PanesActionTypes.ADD_CONTENT_TO_CURRENT_PANE:
         case PanesActionTypes.SET_PANE_CURRENT_CONTENT:
         case PanesActionTypes.REMOVE_PANE_CONTENT:
         case PanesActionTypes.REMOVE_CONTENT_FROM_ALL_PANES:

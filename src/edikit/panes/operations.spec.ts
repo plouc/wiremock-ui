@@ -24,6 +24,7 @@ const getPaneFixtures = (
         contents = contentsSeeds[id].map(contentId => ({
             id: contentId,
             type: 'test',
+            isUnique: false,
             isCurrent: false,
         }))
     }
@@ -89,6 +90,7 @@ describe('addContentToCurrentPane', () => {
             id: 'test',
             type: 'test',
             isCurrent: true,
+            isUnique: false,
         }
         const res = addContentToCurrentPane(panes, content)
         expect(res[0].contents).toHaveLength(1)
@@ -101,6 +103,7 @@ describe('addContentToCurrentPane', () => {
                 id: 'test',
                 type: 'test',
                 isCurrent: false,
+                isUnique: false,
             })
         }).toThrow('unable to find a current pane')
     })

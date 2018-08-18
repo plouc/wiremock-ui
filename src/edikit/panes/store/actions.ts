@@ -37,19 +37,19 @@ export const setCurrentPaneAction = (
     }
 )
 
-export interface IAddCurrentPaneContentAction<Data> {
-    type: PanesActionTypes.ADD_CURRENT_PANE_CONTENT
+export interface IAddContentToCurrentPaneAction<Data> {
+    type: PanesActionTypes.ADD_CONTENT_TO_CURRENT_PANE
     payload: {
         namespace: string
         content: IPaneContent<Data>
     }
 }
 
-export const addCurrentPaneContentAction = <Data>(
+export const addContentToCurrentPaneAction = <Data>(
     namespace: string,
     content: IPaneContent<Data>
 ) => action(
-    PanesActionTypes.ADD_CURRENT_PANE_CONTENT,
+    PanesActionTypes.ADD_CONTENT_TO_CURRENT_PANE,
     {
         namespace,
         content,
@@ -144,7 +144,7 @@ export const splitPaneAction = (
 export type PanesAction<Data> =
     | IInitPanesNamespaceAction
     | ISetCurrentPaneAction
-    | IAddCurrentPaneContentAction<Data>
+    | IAddContentToCurrentPaneAction<Data>
     | ISetPaneCurrentContentAction
     | IRemovePaneContentAction
     | IRemoveContentFromAllPanesAction
@@ -155,9 +155,9 @@ export interface IPanesActions<Data> {
     setCurrentPane: (
         paneId: string,
     ) => ISetCurrentPaneAction
-    addCurrentPaneContent: (
+    addContentToCurrentPane: (
         content: IPaneContent<Data>
-    ) => IAddCurrentPaneContentAction<Data>
+    ) => IAddContentToCurrentPaneAction<Data>
     setPaneCurrentContent: (
         paneId: string,
         contentId: string
@@ -188,9 +188,9 @@ export const actionsFactory = <Data>(namespace: string): IPanesActions<Data> => 
         namespace,
         paneId
     ),
-    addCurrentPaneContent: (
+    addContentToCurrentPane: (
         content: IPaneContent<Data>
-    ) => addCurrentPaneContentAction<Data>(
+    ) => addContentToCurrentPaneAction<Data>(
         namespace,
         content
     ),

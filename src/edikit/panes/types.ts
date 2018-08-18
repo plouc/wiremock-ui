@@ -9,6 +9,7 @@ export interface IPaneContent<Data> {
     id: string
     type: string
     isCurrent: boolean
+    isUnique: boolean
     data?: Data
 }
 

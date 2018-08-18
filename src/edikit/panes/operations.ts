@@ -1,5 +1,10 @@
-import { IPane, IPaneContent, PaneSplitAxis } from './types'
 import uuid from '../util/uuid'
+import { IPane, IPaneContent, PaneSplitAxis } from './types'
+import {
+    panesNsCurrentPaneSelector,
+    panesNsPaneSelector,
+    panesNsContentSelector,
+} from './store'
 
 /**
  * Get a pane by its id and throw if it doesn't exist.
@@ -12,7 +17,7 @@ export const mustGetPane = <Data>(
         throw new Error(`there's no available pane`)
     }
 
-    const foundPane = panes.find(pane => pane.id === paneId)
+    const foundPane = panesNsPaneSelector(panes, paneId)
     if (foundPane === undefined) {
         throw new Error(`no pane found for id: ${paneId}, available panes: ${panes.map(({ id }) => id).join(', ')}`)
     }
@@ -49,7 +54,7 @@ export const setCurrentPane = <Data>(
 ): Array<IPane<Data>> => {
     mustGetPane<Data>(panes, paneId)
 
-    const currentPane = panes.find(pane => pane.isCurrent)
+    const currentPane = panesNsCurrentPaneSelector<Data>(panes)
     if (currentPane !== undefined && currentPane.id === paneId) {
         return panes
     }
@@ -67,12 +72,23 @@ export const setCurrentPane = <Data>(
 /**
  * Append a content to current pane.
  * If the content already exists, doesn't re-append.
+ * If the content is unique and already exists in the existing
+ * panes, doesn't re-append, and set pane/content current,
+ * meaning the content will remains unique across all panes
+ * in the namespace.
  */
 export const addContentToCurrentPane = <Data>(
     panes: Array<IPane<Data>>,
     newContent: IPaneContent<Data>
 ): Array<IPane<Data>> => {
-    const currentPane = panes.find(pane => pane.isCurrent)
+    if (newContent.isUnique) {
+        const existing = panesNsContentSelector(panes, newContent.id)
+        if (existing !== undefined) {
+            return setPaneCurrentContent(panes, existing.pane.id, existing.content.id)
+        }
+    }
+
+    const currentPane = panesNsCurrentPaneSelector<Data>(panes)
     if (currentPane === undefined) {
         throw new Error('unable to find a current pane')
     }
@@ -126,7 +142,7 @@ export const setPaneCurrentContent = <Data>(
     paneId: string,
     contentId: string
 ): Array<IPane<Data>> => {
-    const currentPane = panes.find(pane => pane.isCurrent)
+    const currentPane = panesNsCurrentPaneSelector<Data>(panes)
     if (currentPane !== undefined && currentPane.id === paneId) {
         const currentContent = currentPane.contents.find(
             content => content.isCurrent

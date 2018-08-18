@@ -17,7 +17,7 @@ export interface IPaneManagerProps<Data> {
     setCurrentPane: (
         paneId: string
     ) => void
-    addCurrentPaneContent: (
+    addContentToCurrentPane: (
         content: IPaneContent<Data>
     ) => void
     setPaneCurrentContent: (
@@ -41,7 +41,6 @@ export default class PaneManager<Data> extends React.Component<IPaneManagerProps
 
     render() {
         const {
-            namespace,
             root,
             panes,
             contentTypes,

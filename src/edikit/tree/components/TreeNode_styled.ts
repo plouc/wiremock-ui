@@ -29,6 +29,7 @@ export const Item = styled.div<ItemProps>`
     padding: 3px 12px 3px 7px;
     font-size: 13px;
     font-weight: 600;
+    transition: background 300ms;
     padding-left: ${props => {
         if (props.isDir) {
             return props.depth * iconsOffset + 7
@@ -51,4 +52,12 @@ export const Item = styled.div<ItemProps>`
         color: ${props => props.theme.tree.item.hover.color};
         ${props => props.theme.tree.item.hover.extend};
     }
+`
+
+export const CurrentIndicator = styled.span`
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    margin-left: ${iconSpacing}px;
+    background: ${props => props.theme.colors.accent};
 `

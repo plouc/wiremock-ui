@@ -10,8 +10,8 @@ import MapingIcon from '../../mappings/components/MappingIcon'
 export interface IExplorerProps {
     tree: ITreeNode
     servers: IServer[]
-    loadServerMappings: (server: IServer) => void
-    addCurrentPaneContent: (content: IPaneContent<IData>) => void
+    loadServerMappings(server: IServer): void
+    addContentToCurrentPane(content: IPaneContent<IData>): void
     theme: ITheme
 }
 
@@ -51,14 +51,15 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
         const {
             loadServerMappings,
             servers,
-            addCurrentPaneContent,
+            addContentToCurrentPane,
         } = this.props
 
         if (node.type === 'server.create') {
-            addCurrentPaneContent({
+            addContentToCurrentPane({
                 id: 'server.create',
                 type: 'server.create',
                 isCurrent: true,
+                isUnique: true,
             })
         }
 
@@ -72,10 +73,11 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
         if (node.type === 'mapping' && node.data !== undefined) {
             const server = servers.find(s => s.name === node.data!.serverName)
             if (server !== undefined) {
-                addCurrentPaneContent({
+                addContentToCurrentPane({
                     id: node.id,
                     type: 'mapping',
                     isCurrent: true,
+                    isUnique: false,
                     data: {
                         serverName: server.name,
                         mappingId: node.data.mappingId,

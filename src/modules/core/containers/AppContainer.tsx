@@ -1,7 +1,10 @@
 import * as React from 'react'
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { addCurrentPaneContentAction, IPaneContent } from 'edikit'
+import {
+    addContentToCurrentPaneAction,
+    IPaneContent,
+} from 'edikit'
 import { IApplicationState } from '../../../store'
 import { IData } from '../../../types'
 import { loadState } from '../store'
@@ -19,8 +22,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     loadState: () => {
         dispatch(loadState())
     },
-    addCurrentPaneContent: (content: IPaneContent<IData>) => {
-        dispatch(addCurrentPaneContentAction<IData>(
+    addContentToCurrentPane: (content: IPaneContent<IData>) => {
+        dispatch(addContentToCurrentPaneAction<IData>(
             'default',
             content
         ))

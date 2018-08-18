@@ -35,8 +35,8 @@ export default <AppState, Data>({
         setCurrentPane: (paneId: string) => {
             dispatch(actions.setCurrentPane(paneId))
         },
-        addCurrentPaneContent: (content: IPaneContent<Data>) => {
-            dispatch(actions.addCurrentPaneContent(content))
+        addContentToCurrentPane: (content: IPaneContent<Data>) => {
+            dispatch(actions.addContentToCurrentPane(content))
         },
         setPaneCurrentContent: (paneId: string, contentId: string) => {
             dispatch(actions.setPaneCurrentContent(paneId, contentId))

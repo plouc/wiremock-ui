@@ -2,7 +2,7 @@ import * as React from 'react'
 import SplitPane from 'react-split-pane'
 import { ThemeProvider } from 'styled-components'
 import {createPaneManager, IPaneContent} from 'edikit'
-import themes from '../../../impl/themes'
+import themes from '../../../themes'
 import { ISettings, settingsContentTypes } from '../../settings'
 import { serversContentTypes } from '../../servers'
 import { mappingsContentTypes } from '../../mappings'
@@ -25,7 +25,7 @@ export interface IAppProps {
     loadState: () => void
     hasBeenInitialized: boolean
     settings: ISettings,
-    addCurrentPaneContent: (content: IPaneContent<IData>) => void
+    addContentToCurrentPane(content: IPaneContent<IData>): void
 }
 
 export default class App extends React.Component<IAppProps> {
@@ -37,7 +37,7 @@ export default class App extends React.Component<IAppProps> {
         const {
             hasBeenInitialized,
             settings,
-            addCurrentPaneContent,
+            addContentToCurrentPane,
         } = this.props
 
         if (!hasBeenInitialized) return null
@@ -46,12 +46,12 @@ export default class App extends React.Component<IAppProps> {
             <ThemeProvider theme={themes[settings.theme]}>
                 <Container>
                     <AppBar
-                        addCurrentPaneContent={addCurrentPaneContent}
+                        addContentToCurrentPane={addContentToCurrentPane}
                     />
                     <Inner>
                         <SplitPane split="vertical" defaultSize={260}>
                             <ExplorerContainer
-                                addCurrentPaneContent={addCurrentPaneContent}
+                                addContentToCurrentPane={addContentToCurrentPane}
                             />
                             <PaneManager/>
                         </SplitPane>

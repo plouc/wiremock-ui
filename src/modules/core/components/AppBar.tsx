@@ -6,17 +6,17 @@ import { IData } from '../../../types'
 import { Container, Icons, AppName } from './AppBar_styled'
 
 export interface IAppBarProps {
-    addCurrentPaneContent: (content: IPaneContent<IData>) => void
+    addContentToCurrentPane(content: IPaneContent<IData>): void
     theme: ITheme
 }
 
 class AppBar extends React.Component<IAppBarProps> {
     openSettings = () => {
-        const { addCurrentPaneContent } = this.props
-        addCurrentPaneContent({
+        this.props.addContentToCurrentPane({
             id: 'settings',
             type: 'settings',
             isCurrent: true,
+            isUnique: true,
         })
     }
 

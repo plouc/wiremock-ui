@@ -3,7 +3,7 @@ import { PanesActionTypes } from './types'
 import {
     initPanesNamespaceAction,
     setCurrentPaneAction,
-    addCurrentPaneContentAction,
+    addContentToCurrentPaneAction,
     setPaneCurrentContentAction,
     removePaneContentAction,
     splitPaneAction,
@@ -32,15 +32,16 @@ describe('setCurrentPaneAction', () => {
     })
 })
 
-describe('addCurrentPaneContentAction', () => {
+describe('addContentToCurrentPaneAction', () => {
     it('should return corresponding action', () => {
         const content: IPaneContent<any> = {
             id: 'content_id',
             type: 'test',
-            isCurrent: false
+            isCurrent: false,
+            isUnique: false,
         }
-        expect(addCurrentPaneContentAction('namespace', content)).toEqual({
-            type: PanesActionTypes.ADD_CURRENT_PANE_CONTENT,
+        expect(addContentToCurrentPaneAction('namespace', content)).toEqual({
+            type: PanesActionTypes.ADD_CONTENT_TO_CURRENT_PANE,
             payload: {
                 namespace: 'namespace',
                 content

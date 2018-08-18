@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { panesCurrentContentsSelector } from 'edikit'
 import { ITreeNode } from '../../../impl/tree'
 import { IApplicationState } from '../../../store'
 import { loadServerMappings, getMappingUrl } from '../../mappings'
@@ -8,6 +9,7 @@ import Explorer from '../components/Explorer'
 
 const mapStateToProps = (
     {
+        panes,
         servers: { servers },
         mappings: serversMappings
     }: IApplicationState
@@ -15,6 +17,9 @@ const mapStateToProps = (
     tree: ITreeNode
     servers: IServer[]
 } => {
+    const currentContentIds: string[] = panesCurrentContentsSelector(panes, 'default')
+        .map(({ id }) => id)
+
     const tree: ITreeNode = {
         id: 'root',
         type: 'root',
@@ -53,12 +58,13 @@ const mapStateToProps = (
                 const mapping = mappings.byId[mappingId].mapping
                 if (mapping !== undefined) {
                     mappingsNode.children!.push({
-                        id: mapping.id,
+                        id: mappingId,
                         type: 'mapping',
                         label: mapping.name || `${mapping.request.method} ${getMappingUrl(mapping)}`,
+                        isCurrent: currentContentIds.includes(mappingId),
                         data: {
                             serverName: server.name,
-                            mappingId: mapping.id,
+                            mappingId,
                         },
                     })
                 }
