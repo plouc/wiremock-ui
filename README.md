@@ -6,6 +6,8 @@
 
 An unofficial UI for [WireMock](http://wiremock.org/).
 
+[Features](#features) | [Project struture](#project-structure)
+
 ![UI screenshot](https://raw.githubusercontent.com/plouc/wiremock-ui/master/screenshots/ui_solarized_dark.png)
 
 ## Features
@@ -17,3 +19,9 @@ An unofficial UI for [WireMock](http://wiremock.org/).
 - support multiple panes
 
 ![UI screenshot](https://raw.githubusercontent.com/plouc/wiremock-ui/master/screenshots/ui_white.png)
+
+## Project structure
+
+The project was bootstrapped using [create-react-app](https://github.com/facebook/create-react-app)
+using custom scripts [react-scripts-ts](https://github.com/wmonk/create-react-app-typescript)
+for typescript support.
