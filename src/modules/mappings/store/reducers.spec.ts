@@ -52,6 +52,7 @@ describe('mappingsReducer', () => {
                 haveBeenLoaded: false,
                 ids: [],
                 byId: {},
+                creations: {},
             },
         })
     })
@@ -71,12 +72,12 @@ describe('mappingsReducer', () => {
                 byId: {
                     [testMapping.id]: {
                         mapping: testMapping,
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         })
     })
@@ -89,12 +90,12 @@ describe('mappingsReducer', () => {
                 ids: [testMapping.id],
                 byId: {
                     [testMapping.id]: {
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -114,12 +115,12 @@ describe('mappingsReducer', () => {
                 ids: [testMapping.id],
                 byId: {
                     [testMapping.id]: {
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: true,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -141,12 +142,12 @@ describe('mappingsReducer', () => {
                 byId: {
                     [testMapping.id]: {
                         mapping: testMapping,
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -167,12 +168,12 @@ describe('mappingsReducer', () => {
                 byId: {
                     [testMapping.id]: {
                         mapping: testMapping,
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -203,12 +204,12 @@ describe('mappingsReducer', () => {
                 byId: {
                     [testMapping.id]: {
                         mapping: testMapping,
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -235,12 +236,12 @@ describe('mappingsReducer', () => {
                 byId: {
                     [testMapping.id]: {
                         mapping: testMapping,
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -271,12 +272,12 @@ describe('mappingsReducer', () => {
                 ids: [testMapping.id],
                 byId: {
                     [testMapping.id]: {
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -296,12 +297,12 @@ describe('mappingsReducer', () => {
                 ids: [testMapping.id],
                 byId: {
                     [testMapping.id]: {
-                        isCreating: false,
                         isDeleting: false,
                         isFetching: false,
                         isUpdating: false,
                     },
                 },
+                creations: {},
             },
         }
         const state = mappingsReducer(
@@ -315,6 +316,7 @@ describe('mappingsReducer', () => {
                 haveBeenLoaded: true,
                 ids: [],
                 byId: {},
+                creations: {},
             },
         })
     })

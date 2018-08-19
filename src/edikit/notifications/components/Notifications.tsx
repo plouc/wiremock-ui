@@ -7,8 +7,8 @@ const Wrapper = styled.div`
     position: absolute;
     z-index: 100000;
     width: 360px;
-    bottom: 16px;
-    left: 16px;
+    bottom: 32px;
+    left: 32px;
 `
 
 interface INotificationsProps {

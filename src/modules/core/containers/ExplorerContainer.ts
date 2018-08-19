@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
-import { panesCurrentContentsSelector } from 'edikit'
+import { panesCurrentContentsSelector, uuid } from 'edikit'
 import { ITreeNode } from '../../../impl/tree'
 import { IApplicationState } from '../../../store'
 import { loadServerMappings, getMappingUrl } from '../../mappings'
@@ -28,32 +28,35 @@ const mapStateToProps = (
     }
 
     servers.forEach(server => {
-        const mappingsNode: ITreeNode = {
-            id: `${server.name}.mappings`,
-            type: 'mappings',
-            label: 'mappings',
-            data: {
-                serverName: server.name,
-            },
-            children: []
-        }
-
         const serverNode = {
             id: server.name,
             label: server.name,
             type: 'server',
-            children: [
-                {
-                    id: `${server.name}.mapping.create`,
-                    type: 'mapping.create',
-                    label: 'create mapping',
-                },
-                mappingsNode
-            ]
+            children: [] as ITreeNode[],
         }
 
         const mappings = serversMappings[server.name]
         if (mappings !== undefined) {
+            const creationId = uuid()
+            serverNode.children.push({
+                id: `${server.name}.mapping.create.${creationId}`,
+                type: 'mapping.create',
+                label: 'create mapping',
+                data: {
+                    serverName: server.name,
+                    creationId,
+                },
+            })
+
+            const mappingsNode: ITreeNode = {
+                id: `${server.name}.mappings`,
+                type: 'mappings',
+                label: 'mappings',
+                data: {
+                    serverName: server.name,
+                },
+                children: [],
+            }
             mappings.ids.forEach(mappingId => {
                 const mapping = mappings.byId[mappingId].mapping
                 if (mapping !== undefined) {
@@ -69,6 +72,7 @@ const mapStateToProps = (
                     })
                 }
             })
+            serverNode.children.push(mappingsNode)
         }
 
         tree.children!.push(serverNode)

@@ -79,7 +79,7 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
                     data: {
                         serverName: server.name,
                         mappingId: node.data.mappingId,
-                    }
+                    },
                 })
             }
         }
@@ -90,6 +90,19 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
                 type: 'server.create',
                 isCurrent: true,
                 isUnique: true,
+            })
+        }
+
+        if (node.type === 'mapping.create' && node.data !== undefined) {
+            addContentToCurrentPane({
+                id: node.id,
+                type: 'mapping.create',
+                isCurrent: true,
+                isUnique: false,
+                data: {
+                    serverName: node.data.serverName,
+                    creationId: node.data.creationId,
+                },
             })
         }
 

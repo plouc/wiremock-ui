@@ -12,14 +12,10 @@ import BuilderResponse from './builder/BuilderResponse'
 
 interface IMappingBuilderProps {
     mapping: IMapping
-    workingCopy: IMapping
-    isFetching: boolean
-    isCreating: boolean
-    isUpdating: boolean
-    isDeleting: boolean
-    sync(values: IMapping): void
+    isLoading: boolean
+    sync?: (values: IMapping) => void
     save(values: IMapping): void
-    deleteMapping(): void
+    deleteMapping?: () => void
     mode: 'builder' | 'json'
     setBuilderMode(): void
     setJsonMode(): void
@@ -59,13 +55,15 @@ class MappingBuilder extends React.Component<
 
     sync = () => {
         const { sync, values } = this.props
-        sync(mappingFormValuesToMapping(values))
+        if (sync !== undefined) {
+            sync(mappingFormValuesToMapping(values))
+        }
     }
 
     handleBlur = (e: React.SyntheticEvent) => {
-        const { handleBlur } = this.props
+        const { handleBlur, sync } = this.props
         handleBlur(e)
-        this.sync()
+        if (sync !== undefined) this.sync()
     }
 
     toggleRequest = () => {
@@ -86,10 +84,7 @@ class MappingBuilder extends React.Component<
 
     render() {
         const {
-            isFetching,
-            isCreating,
-            isUpdating,
-            isDeleting,
+            isLoading,
             deleteMapping,
             values,
             errors,
@@ -99,7 +94,6 @@ class MappingBuilder extends React.Component<
             setBuilderMode,
             setJsonMode,
             submitForm,
-            isValid,
         } = this.props
         const {
             isRequestOpened,
@@ -113,13 +107,10 @@ class MappingBuilder extends React.Component<
                     mode={mode}
                     setBuilderMode={setBuilderMode}
                     setJsonMode={setJsonMode}
-                    shouldSave={true}
-                    hasError={!isValid}
                     save={submitForm}
-                    shouldDelete={true}
                     deleteMapping={deleteMapping}
                 />
-                <Content isLoading={isFetching || isCreating || isUpdating || isDeleting}>
+                <Content isLoading={isLoading}>
                     <Builder>
                         <Block withLink={true}>
                             <Grid>

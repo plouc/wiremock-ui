@@ -18,6 +18,7 @@ const Item = styled.div<IItemProps>`
     border-radius: 1px;
     padding: 7px 12px 7px 15px;
     background: ${props => props.theme.notifications.item.background || 'transparent'};
+    color: ${props => props.theme.notifications.item.color || 'inherit'};
     ${props => props.theme.notifications.item.css}
     
     &:before {

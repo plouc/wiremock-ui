@@ -15,8 +15,8 @@ const reducer: Reducer<IServersState> = (state = initialState, action) => {
         case ServersActionTypes.INIT_SERVERS: {
             return {
                 ...state,
-                servers: action.payload.servers.map((s: Partial<IServer>) => ({
-                    ...s,
+                servers: action.payload.servers.map((server: Partial<IServer>) => ({
+                    ...server,
                     mappingsHaveBeenLoaded: false,
                     isLoadingMappings: false,
                     mappings: []

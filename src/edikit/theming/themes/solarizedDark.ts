@@ -149,7 +149,7 @@ const theme: ITheme = {
     },
     notifications: {
         item: {
-            background: '#013340',
+            background: '#014f60',
             css: css`
                 border: 2px solid #011e25;
             `

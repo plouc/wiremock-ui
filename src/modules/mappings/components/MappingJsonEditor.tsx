@@ -8,13 +8,10 @@ import MappingBar from './MappingBar'
 
 interface IMappingJsonEditorProps {
     mapping: IMapping
-    workingCopy: IMapping
-    isFetching: boolean
-    isCreating: boolean
-    isUpdating: boolean
-    sync(values: IMapping): void
+    isLoading: boolean
     save(values: IMapping): void
-    deleteMapping(): void
+    sync?: (values: IMapping) => void
+    deleteMapping?: () => void
     mode: 'builder' | 'json'
     setBuilderMode(): void
     setJsonMode(): void
@@ -24,10 +21,8 @@ interface IMappingJsonEditorProps {
 class MappingJsonEditor extends React.Component<IMappingJsonEditorProps> {
     render() {
         const {
-            workingCopy,
-            isFetching,
-            isCreating,
-            isUpdating,
+            mapping,
+            isLoading,
             mode,
             setBuilderMode,
             setJsonMode,
@@ -35,7 +30,7 @@ class MappingJsonEditor extends React.Component<IMappingJsonEditorProps> {
             theme,
         } = this.props
 
-        const source = JSON.stringify(workingCopy, null, '    ')
+        const source = JSON.stringify(mapping, null, '    ')
 
         return (
             <Container>
@@ -43,11 +38,9 @@ class MappingJsonEditor extends React.Component<IMappingJsonEditorProps> {
                     mode={mode}
                     setBuilderMode={setBuilderMode}
                     setJsonMode={setJsonMode}
-                    shouldSave={false}
-                    shouldDelete={true}
                     deleteMapping={deleteMapping}
                 />
-                <Content isLoading={isFetching || isCreating || isUpdating}>
+                <Content isLoading={isLoading}>
                     <AceEditor
                         mode="json"
                         theme={theme.editor.theme}

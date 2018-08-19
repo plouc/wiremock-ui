@@ -1,44 +1,34 @@
 import * as React from 'react'
-import { IServer } from '../../servers'
 import { IMapping } from '../types'
 import MappingJsonEditor from './MappingJsonEditor'
 import MappingBuilder from './MappingBuilder'
 import { Wrapper, Overlay } from './Mapping_styled'
 
-interface IMappingProps {
-    serverName:  string
-    mappingId: string
-    server?: IServer
+interface ICreateMappingProps {
+    serverName: string
+    creationId: string
     mapping?: IMapping
-    isLoading: boolean
-    fetchMapping(): void
-    initWorkingCopy(): void
-    syncWorkingCopy(update: Partial<IMapping>): void
-    updateMapping(update: IMapping): void
-    deleteMapping(): void
+    isCreating: boolean
+    init(): void
+    save(mapping: IMapping): void
+    cancel(): void
 }
 
-interface IMappingState {
+interface ICreateMappingState {
     mode: 'builder' | 'json'
 }
 
-export default class Mapping extends React.Component<IMappingProps, IMappingState> {
-    constructor(props: IMappingProps) {
+export default class CreateMapping extends React.Component<ICreateMappingProps, ICreateMappingState> {
+    constructor(props: ICreateMappingProps) {
         super(props)
 
         this.state = {
-            mode: 'builder'
+            mode: 'builder',
         }
     }
 
     componentDidMount() {
-        this.props.initWorkingCopy()
-    }
-
-    componentDidUpdate(prevProps: IMappingProps) {
-        if (this.props.mappingId !== prevProps.mappingId) {
-            this.props.initWorkingCopy()
-        }
+        this.props.init()
     }
 
     setBuilderMode = () => {
@@ -51,25 +41,23 @@ export default class Mapping extends React.Component<IMappingProps, IMappingStat
 
     render() {
         const {
+            creationId,
             mapping,
-            isLoading,
-            syncWorkingCopy,
-            updateMapping,
-            deleteMapping,
+            isCreating,
+            save,
         } = this.props
-        const { mode } = this.state
 
         if (mapping === undefined) return null
+
+        const { mode } = this.state
 
         return (
             <Wrapper>
                 {mode === 'builder' && (
                     <MappingBuilder
                         mapping={mapping}
-                        isLoading={isLoading}
-                        save={updateMapping}
-                        sync={syncWorkingCopy}
-                        deleteMapping={deleteMapping}
+                        isLoading={isCreating}
+                        save={save}
                         mode={mode}
                         setBuilderMode={this.setBuilderMode}
                         setJsonMode={this.setJsonMode}
@@ -78,16 +66,14 @@ export default class Mapping extends React.Component<IMappingProps, IMappingStat
                 {mode === 'json' && (
                     <MappingJsonEditor
                         mapping={mapping}
-                        isLoading={isLoading}
-                        save={updateMapping}
-                        sync={syncWorkingCopy}
-                        deleteMapping={deleteMapping}
+                        isLoading={isCreating}
+                        save={save}
                         mode={mode}
                         setBuilderMode={this.setBuilderMode}
                         setJsonMode={this.setJsonMode}
                     />
                 )}
-                {isLoading && <Overlay/>}
+                {isCreating && <Overlay/>}
             </Wrapper>
         )
     }

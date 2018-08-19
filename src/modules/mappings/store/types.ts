@@ -10,4 +10,8 @@ export enum MappingsActionTypes {
     UPDATE_MAPPING_SUCCESS       = '@@mappings/UPDATE_MAPPING_SUCCESS',
     DELETE_MAPPING_REQUEST       = '@@mappings/DELETE_MAPPING_REQUEST',
     DELETE_MAPPING_SUCCESS       = '@@mappings/DELETE_MAPPING_SUCCESS',
+    INIT_CREATE_MAPPING          = '@@mappings/INIT_CREATE_MAPPING',
+    CREATE_MAPPING_REQUEST       = '@@mappings/CREATE_MAPPING_REQUEST',
+    CREATE_MAPPING_SUCCESS       = '@@mappings/CREATE_MAPPING_SUCCESS',
+    CANCEL_CREATE_MAPPING        = '@@mappings/CANCEL_CREATE_MAPPING',
 }

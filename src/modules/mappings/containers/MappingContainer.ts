@@ -21,11 +21,7 @@ interface IOwnProps {
 interface IPropsFromState {
     server?: IServer
     mapping?: IMapping
-    workingCopy?: IMapping
-    isFetching: boolean
-    isCreating: boolean
-    isUpdating: boolean
-    isDeleting: boolean
+    isLoading: boolean
 }
 
 const mapStateToProps = (
@@ -47,7 +43,11 @@ const mapStateToProps = (
         throw new Error(`no mapping found for server: '${serverName}' fot id: ${mappingId}`)
     }
 
-    return { server, ...mapping! }
+    return {
+        server,
+        isLoading: mapping!.isFetching || mapping!.isUpdating || mapping!.isDeleting,
+        mapping: mapping!.workingCopy,
+    }
 }
 
 

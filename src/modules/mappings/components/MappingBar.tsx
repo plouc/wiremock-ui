@@ -39,29 +39,17 @@ interface IMappingBarProps {
     mode: 'builder' | 'json'
     setBuilderMode(): void
     setJsonMode(): void
-    shouldSave: boolean
-    shouldDelete: boolean
-    hasError: boolean
-    save(): void
-    deleteMapping(): void
+    save?: () => void
+    deleteMapping?: () => void
 }
 
 export default class MappingBar extends React.Component<IMappingBarProps> {
-    static defaultProps = {
-        shouldSave: true,
-        shouldDelete: false,
-        hasError: false,
-        save: () => { return },
-    }
-
     render() {
         const {
             mode,
             setBuilderMode,
             setJsonMode,
-            shouldSave,
             save,
-            shouldDelete,
             deleteMapping,
         } = this.props
 
@@ -95,7 +83,7 @@ export default class MappingBar extends React.Component<IMappingBarProps> {
                     </Button>
                 </ButtonsWrapper>
                 <ButtonsWrapper>
-                    {shouldSave && (
+                    {save !== undefined && (
                         <Button
                             onClick={save}
                             style={actionButtonStyle}
@@ -103,7 +91,7 @@ export default class MappingBar extends React.Component<IMappingBarProps> {
                             icon={<SaveIcon size={16}/>}
                         />
                     )}
-                    {shouldDelete && (
+                    {deleteMapping !== undefined && (
                         <Button
                             onClick={deleteMapping}
                             style={actionButtonStyle}

@@ -1,12 +1,11 @@
 import * as React from 'react'
 import { action } from 'typesafe-actions'
-import { IAction } from '../../../store'
 import { IServer } from '../../servers'
 import { IMapping } from '../types'
 import { getMappingLabel } from '../dto'
 import { MappingsActionTypes } from './types'
 
-export interface ILoadServerMappingsAction extends IAction {
+export interface ILoadServerMappingsAction {
     type: MappingsActionTypes.LOAD_SERVER_MAPPINGS
     payload: {
         serverName: string
@@ -14,7 +13,7 @@ export interface ILoadServerMappingsAction extends IAction {
     }
 }
 
-export const loadServerMappings = (server: IServer) => action(
+export const loadServerMappings = (server: IServer): ILoadServerMappingsAction => action(
     MappingsActionTypes.LOAD_SERVER_MAPPINGS,
     {
         serverName: server.name,
@@ -22,7 +21,7 @@ export const loadServerMappings = (server: IServer) => action(
     }
 )
 
-export interface ILoadServerMappingsRequestAction extends IAction {
+export interface ILoadServerMappingsRequestAction {
     type: MappingsActionTypes.LOAD_SERVER_MAPPINGS_REQUEST
     payload: {
         serverName: string
@@ -30,7 +29,7 @@ export interface ILoadServerMappingsRequestAction extends IAction {
     }
 }
 
-export const loadServerMappingsRequest = (server: IServer) => action(
+export const loadServerMappingsRequest = (server: IServer): ILoadServerMappingsRequestAction => action(
     MappingsActionTypes.LOAD_SERVER_MAPPINGS_REQUEST,
     {
         serverName: server.name,
@@ -38,7 +37,7 @@ export const loadServerMappingsRequest = (server: IServer) => action(
     }
 )
 
-export interface ILoadServerMappingsSuccessAction extends IAction {
+export interface ILoadServerMappingsSuccessAction {
     type: MappingsActionTypes.LOAD_SERVER_MAPPINGS_SUCCESS
     payload: {
         serverName: string
@@ -50,7 +49,7 @@ export interface ILoadServerMappingsSuccessAction extends IAction {
 export const loadServerMappingsSuccess = (
     server: IServer,
     mappings: IMapping[]
-) => action(
+): ILoadServerMappingsSuccessAction => action(
     MappingsActionTypes.LOAD_SERVER_MAPPINGS_SUCCESS,
     {
         serverName: server.name,
@@ -59,7 +58,7 @@ export const loadServerMappingsSuccess = (
     }
 )
 
-export interface IFetchMappingRequestAction extends IAction {
+export interface IFetchMappingRequestAction {
     type: MappingsActionTypes.FETCH_MAPPING_REQUEST
     payload: {
         serverName: string
@@ -70,7 +69,7 @@ export interface IFetchMappingRequestAction extends IAction {
 export const fetchMappingRequest = (
     serverName: string,
     mappingId: string
-) => action(
+): IFetchMappingRequestAction => action(
     MappingsActionTypes.FETCH_MAPPING_REQUEST,
     {
         serverName,
@@ -78,7 +77,7 @@ export const fetchMappingRequest = (
     }
 )
 
-export interface IFetchMappingSuccessAction extends IAction {
+export interface IFetchMappingSuccessAction {
     type: MappingsActionTypes.FETCH_MAPPING_SUCCESS
     payload: {
         serverName: string
@@ -91,7 +90,7 @@ export const fetchMappingSuccess = (
     serverName: string,
     mappingId: string,
     mapping: IMapping
-) => action(
+): IFetchMappingSuccessAction => action(
     MappingsActionTypes.FETCH_MAPPING_SUCCESS,
     {
         serverName,
@@ -100,7 +99,7 @@ export const fetchMappingSuccess = (
     }
 )
 
-export interface IInitMappingWorkingCopyAction extends IAction {
+export interface IInitMappingWorkingCopyAction {
     type: MappingsActionTypes.INIT_MAPPING_WORKING_COPY
     payload: {
         serverName: string
@@ -111,7 +110,7 @@ export interface IInitMappingWorkingCopyAction extends IAction {
 export const initMappingWorkingCopy = (
     serverName: string,
     mappingId: string
-) => action(
+): IInitMappingWorkingCopyAction => action(
     MappingsActionTypes.INIT_MAPPING_WORKING_COPY,
     {
         serverName,
@@ -119,7 +118,7 @@ export const initMappingWorkingCopy = (
     }
 )
 
-export interface ISyncMappingWorkingCopyAction extends IAction {
+export interface ISyncMappingWorkingCopyAction {
     type: MappingsActionTypes.SYNC_MAPPING_WORKING_COPY
     payload: {
         serverName: string
@@ -132,7 +131,7 @@ export const syncMappingWorkingCopy = (
     serverName: string,
     mappingId: string,
     update: IMapping
-) => action(
+): ISyncMappingWorkingCopyAction => action(
     MappingsActionTypes.SYNC_MAPPING_WORKING_COPY,
     {
         serverName,
@@ -141,7 +140,7 @@ export const syncMappingWorkingCopy = (
     }
 )
 
-export interface IUpdateMappingRequestAction extends IAction {
+export interface IUpdateMappingRequestAction {
     type: MappingsActionTypes.UPDATE_MAPPING_REQUEST
     payload: {
         serverName: string
@@ -154,7 +153,7 @@ export const updateMappingRequest = (
     serverName: string,
     mappingId: string,
     mapping: IMapping
-) => action(
+): IUpdateMappingRequestAction => action(
     MappingsActionTypes.UPDATE_MAPPING_REQUEST,
     {
         serverName,
@@ -163,7 +162,7 @@ export const updateMappingRequest = (
     }
 )
 
-export interface IUpdateMappingSuccessAction extends IAction {
+export interface IUpdateMappingSuccessAction {
     type: MappingsActionTypes.UPDATE_MAPPING_SUCCESS
     payload: {
         serverName: string
@@ -176,7 +175,7 @@ export const updateMappingSuccess = (
     serverName: string,
     mappingId: string,
     mapping: IMapping
-) => action(
+): IUpdateMappingSuccessAction => action(
     MappingsActionTypes.UPDATE_MAPPING_SUCCESS,
     {
         serverName,
@@ -196,7 +195,7 @@ export const updateMappingSuccess = (
     }
 )
 
-export interface IDeleteMappingRequestAction extends IAction {
+export interface IDeleteMappingRequestAction {
     type: MappingsActionTypes.DELETE_MAPPING_REQUEST
     payload: {
         serverName: string
@@ -207,7 +206,7 @@ export interface IDeleteMappingRequestAction extends IAction {
 export const deleteMappingRequest = (
     serverName: string,
     mappingId: string
-) => action(
+): IDeleteMappingRequestAction => action(
     MappingsActionTypes.DELETE_MAPPING_REQUEST,
     {
         serverName,
@@ -215,7 +214,7 @@ export const deleteMappingRequest = (
     }
 )
 
-export interface IDeleteMappingSuccessAction extends IAction {
+export interface IDeleteMappingSuccessAction {
     type: MappingsActionTypes.DELETE_MAPPING_SUCCESS
     payload: {
         serverName: string
@@ -226,11 +225,118 @@ export interface IDeleteMappingSuccessAction extends IAction {
 export const deleteMappingSuccess = (
     serverName: string,
     mappingId: string
-) => action(
+): IDeleteMappingSuccessAction => action(
     MappingsActionTypes.DELETE_MAPPING_SUCCESS,
     {
         serverName,
         mappingId,
+    }
+)
+
+export interface IInitCreateMappingAction {
+    type: MappingsActionTypes.INIT_CREATE_MAPPING
+    payload: {
+        serverName: string
+        creationId: string
+        mapping: IMapping
+    }
+}
+
+export const initCreateMapping = (
+    serverName: string,
+    creationId: string
+): IInitCreateMappingAction => action(
+    MappingsActionTypes.INIT_CREATE_MAPPING,
+    {
+        serverName,
+        creationId,
+        mapping: {
+            id: creationId,
+            uuid: creationId,
+            request: {
+                method: 'GET' as 'GET',
+            },
+            response: {
+                status: 200,
+            },
+        }
+    }
+)
+
+export interface ICreateMappingRequestAction {
+    type: MappingsActionTypes.CREATE_MAPPING_REQUEST
+    payload: {
+        serverName: string
+        creationId: string
+        mapping: IMapping
+    }
+}
+
+export const createMappingRequest = (
+    serverName: string,
+    creationId: string,
+    mapping: IMapping
+): ICreateMappingRequestAction => action(
+    MappingsActionTypes.CREATE_MAPPING_REQUEST,
+    {
+        serverName,
+        creationId,
+        mapping,
+    }
+)
+
+export interface ICreateMappingSuccessAction {
+    type: MappingsActionTypes.CREATE_MAPPING_SUCCESS
+    payload: {
+        serverName: string
+        mappingId: string
+        creationId: string
+        mapping: IMapping
+    }
+}
+
+export const createMappingSuccess = (
+    serverName: string,
+    mappingId: string,
+    creationId: string,
+    mapping: IMapping
+): ICreateMappingSuccessAction => action(
+    MappingsActionTypes.CREATE_MAPPING_SUCCESS,
+    {
+        serverName,
+        mappingId,
+        creationId,
+        mapping,
+    },
+    {
+        notification: {
+            type: 'success',
+            content: (
+                <div>
+                    mapping <strong>{getMappingLabel(mapping)}</strong> successfully created
+                </div>
+            ),
+            ttl: 2000,
+        },
+    }
+)
+
+export interface ICancelMappingCreationAction {
+    type: MappingsActionTypes.CANCEL_CREATE_MAPPING
+    payload: {
+        serverName: string
+        creationId: string
+    }
+}
+
+export const cancelMappingCreation = (
+    serverName: string,
+    creationId: string
+): ICancelMappingCreationAction => action(
+    MappingsActionTypes.CANCEL_CREATE_MAPPING,
+    {
+        serverName,
+        creationId,
     }
 )
 
@@ -246,3 +352,7 @@ export type MappingsAction =
     | IUpdateMappingSuccessAction
     | IDeleteMappingRequestAction
     | IDeleteMappingSuccessAction
+    | IInitCreateMappingAction
+    | ICreateMappingRequestAction
+    | ICreateMappingSuccessAction
+    | ICancelMappingCreationAction

@@ -25,7 +25,7 @@ export const Content = styled.div<IContentProps>`
     overflow-x: hidden;
     overflow-y: auto;
     transition: opacity 200ms;
-    opacity: ${props => props.isLoading ? .75 : 1};
+    opacity: ${props => props.isLoading ? .5 : 1};
 `
 
 export const Overlay = styled.div`

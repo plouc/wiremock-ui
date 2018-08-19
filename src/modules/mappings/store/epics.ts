@@ -1,10 +1,12 @@
 import { Epic, combineEpics } from 'redux-observable'
 import { of, EMPTY, from } from 'rxjs'
 import { mergeMap, map, flatMap } from 'rxjs/operators'
-import { removeContentFromAllPanesAction } from 'edikit'
+import { omit } from 'lodash'
+import { removeContentFromAllPanesAction, addContentToCurrentPaneAction } from 'edikit'
 import {
     getMappings,
     getMapping,
+    createMapping,
     updateMapping,
     deleteMapping,
 } from '../../../api'
@@ -12,6 +14,7 @@ import { IApplicationState } from '../../../store'
 import {
     loadServerMappingsRequest,
     loadServerMappingsSuccess,
+    createMappingSuccess,
     updateMappingSuccess,
     fetchMappingSuccess,
     deleteMappingSuccess,
@@ -21,6 +24,7 @@ import {
     IFetchMappingRequestAction,
     IUpdateMappingRequestAction,
     IDeleteMappingRequestAction,
+    ICreateMappingRequestAction,
 } from './actions'
 import { IMapping } from '../types'
 import { MappingsActionTypes } from './types'
@@ -73,6 +77,45 @@ export const fetchMappingsEpic: Epic<MappingsAction, any, IApplicationState> = (
             })
         )
 
+export const createMappingEpic: Epic<MappingsAction, any, IApplicationState> = (action$, state$) =>
+    action$.ofType(MappingsActionTypes.CREATE_MAPPING_REQUEST)
+        .pipe(
+            flatMap(({ payload }: ICreateMappingRequestAction) => {
+                const server = state$.value.servers.servers.find(
+                    s => s.name === payload.serverName
+                )
+                if (server === undefined) return EMPTY
+
+                return createMapping(server, omit(payload.mapping, ['id', 'uuid'])).pipe(
+                    mergeMap(({ response: mapping }) => from([
+                        removeContentFromAllPanesAction(
+                            'default',
+                            `${server.name}.mapping.create.${payload.creationId}`,
+                        ),
+                        createMappingSuccess(
+                            payload.serverName,
+                            mapping.id,
+                            payload.creationId,
+                            mapping
+                        ),
+                        addContentToCurrentPaneAction(
+                            'default',
+                            {
+                                id: mapping.id,
+                                type: 'mapping',
+                                isCurrent: true,
+                                isUnique: false,
+                                data: {
+                                    serverName: server.name,
+                                    mappingId: mapping.id,
+                                },
+                            }
+                        ),
+                    ]))
+                )
+            })
+        )
+
 export const updateMappingEpic: Epic<MappingsAction, any, IApplicationState> = (action$, state$) =>
     action$.ofType(MappingsActionTypes.UPDATE_MAPPING_REQUEST)
         .pipe(
@@ -120,6 +163,7 @@ export const mappingsEpic = combineEpics(
     shouldLoadServerMappingsEpic,
     loadServerMappingsEpic,
     fetchMappingsEpic,
+    createMappingEpic,
     updateMappingEpic,
     deleteMappingEpic
 )
