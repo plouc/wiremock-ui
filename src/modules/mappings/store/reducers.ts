@@ -137,7 +137,7 @@ export const mappingsByServerReducer = (
         byId: {},
         creations: {},
     },
-    action: MappingsAction
+    action: MappingsAction | ServersAction
 ): IServerMappingsState => {
     switch (action.type) {
         case MappingsActionTypes.LOAD_SERVER_MAPPINGS_REQUEST:
@@ -260,6 +260,15 @@ export const mappingsReducer = (
                     creations: {},
                 },
             }), {})
+
+        case ServersActionTypes.CREATE_SERVER:
+            return {
+                ...state,
+                [action.payload.server.name]: mappingsByServerReducer(
+                    undefined,
+                    action
+                )
+            }
 
         case MappingsActionTypes.LOAD_SERVER_MAPPINGS_REQUEST:
         case MappingsActionTypes.LOAD_SERVER_MAPPINGS_SUCCESS:

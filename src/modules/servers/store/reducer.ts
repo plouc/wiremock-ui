@@ -1,4 +1,4 @@
-import {Reducer} from 'redux'
+import { Reducer } from 'redux'
 import { ServersActionTypes } from './types'
 import { IServer } from '../types'
 
