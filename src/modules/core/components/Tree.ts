@@ -4,7 +4,7 @@ import {
     TreeClickHandler as BaseTreeClickHandler,
     TreeIconGetter as BaseTreeIconGetter,
 } from 'edikit'
-import { IData } from '../types'
+import { IData } from '../../../types'
 
 export interface ITreeNode extends BaseTreeNode<IData> {}
 

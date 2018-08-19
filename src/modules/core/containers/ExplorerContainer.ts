@@ -1,7 +1,7 @@
 import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { panesCurrentContentsSelector, uuid } from 'edikit'
-import { ITreeNode } from '../../../impl/tree'
+import { ITreeNode } from '../components/Tree'
 import { IApplicationState } from '../../../store'
 import { loadServerMappings, getMappingUrl } from '../../mappings'
 import { IServer } from '../../servers'
