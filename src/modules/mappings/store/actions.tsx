@@ -230,6 +230,17 @@ export const deleteMappingSuccess = (
     {
         serverName,
         mappingId,
+    },
+    {
+        notification: {
+            type: 'success',
+            content: (
+                <div>
+                    mapping successfully deleted
+                </div>
+            ),
+            ttl: 2000,
+        },
     }
 )
 
