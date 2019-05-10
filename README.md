@@ -6,7 +6,7 @@
 
 An unofficial UI for [WireMock](http://wiremock.org/).
 
-[Features](#features) | [Project structure](#project-structure) |  [How to start the UI](#How to start the UI)
+[Features](#features) | [Project structure](#project-structure) | [How to start the UI](#start-ui)
 
 ![UI screenshot](https://raw.githubusercontent.com/plouc/wiremock-ui/master/screenshots/ui_solarized_dark.png)
 
