@@ -25,3 +25,11 @@ An unofficial UI for [WireMock](http://wiremock.org/).
 The project was bootstrapped using [create-react-app](https://github.com/facebook/create-react-app)
 using custom scripts [react-scripts-ts](https://github.com/wmonk/create-react-app-typescript)
 for typescript support.
+
+## How to start the UI
+
+1. Enter the wiremock-ui directory
+2. yarn install
+3. yarn start
+
+4. The first thing you do is: Add a server (use the adress of a running WireMock Server)
