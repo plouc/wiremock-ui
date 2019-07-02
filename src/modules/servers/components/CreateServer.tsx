@@ -58,7 +58,7 @@ class CreateServer extends React.Component<ICreateServerProps> {
                                 .required(),
                             url: Yup.string()
                                 .matches(
-                                    /^https?:\/\/(((www\.)?[a-zA-Z0-9._]{2,}\.[a-z]{2,6})|localhost|([0-9]{1,3}\.){3}[0-9]{1,3})$/,
+                                    /^https?:\/\/(((www\.)?[a-zA-Z0-9._-]{2,}\.[a-z]{2,6})|localhost|([0-9]{1,3}\.){3}[0-9]{1,3})$/,
                                     'Invalid URL'
                                 )
                                 .required(),
