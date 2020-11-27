@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { withTheme } from 'styled-components'
-import { Monitor, Settings, Github } from 'react-feather'
+import { Monitor, Settings, GitHub } from 'react-feather'
 import { ITheme, Button, IPaneContent } from 'edikit'
 import { IData } from '../../../types'
 import { Container, Icons, AppName } from './AppBar_styled'
@@ -54,7 +54,7 @@ class AppBar extends React.Component<IAppBarProps> {
                     <Button
                         style={{ marginRight: 12 }}
                         icon={
-                            <Github
+                            <GitHub
                                 size={16}
                                 style={{ marginRight: 6 }}
                             />
