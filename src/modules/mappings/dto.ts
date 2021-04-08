@@ -37,19 +37,34 @@ export const mappingRequestBodyPatternsToFormValue = (bodyPatterns?: IMappingReq
     if (bodyPatterns === undefined || bodyPatterns.length === 0) {
         return bodyPatternsFormValue
     }
-
+    
     bodyPatterns.forEach(bodyPattern => {
-        mappingRequestBodyPatternMatchTypes.forEach(matchType => {
+        const index = 0;
+        mappingRequestBodyPatternMatchTypes.forEach((matchType, index) => {
             if (bodyPattern[matchType] !== undefined) {
                 bodyPatternsFormValue.push({
+                    key: index,
                     matchType,
                     value: matchType === 'absent' ? '' : bodyPattern[matchType]!
                 })
+                index++;
             }
         })
     })
 
     return bodyPatternsFormValue
+}
+
+export const formatResponseBody = (mapping: IMapping): IMappingFormValues => {
+    const res = mappingToFormValues(mapping);
+    if (res.bodyType === 'JSON') {
+        try {
+            res.responseBody = JSON.stringify(res.responseBody, null, 2);
+        } catch (e) {
+            // do nothing
+        }
+    }
+    return res;
 }
 
 export const mappingToFormValues = (mapping: IMapping): IMappingFormValues => {

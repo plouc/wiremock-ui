@@ -7,6 +7,7 @@ import RequestUrl from './RequestUrl'
 import RequestUrlDetails from './RequestUrlDetails'
 import RequestParamsSwitcher from './RequestParamsSwitcher'
 import RequestParams from './RequestParams'
+import BodyPatternParams from './BodyPatternParams'
 import { Grid } from './Builder_styled'
 
 interface IBuilderRequestProps {
@@ -90,6 +91,15 @@ export default class BuilderRequest extends React.Component<IBuilderRequestProps
                                 <RequestParams
                                     type="requestCookies"
                                     label="cookie"
+                                    values={values}
+                                    errors={errors}
+                                    touched={touched}
+                                    onChange={onChange}
+                                    onBlur={onBlur}
+                                />
+                            )}
+                            {paramsType === 'body' && (
+                                <BodyPatternParams
                                     values={values}
                                     errors={errors}
                                     touched={touched}

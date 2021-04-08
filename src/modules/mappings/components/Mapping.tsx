@@ -48,7 +48,7 @@ export default class Mapping extends React.Component<IMappingProps, IMappingStat
     setJsonMode = () => {
         this.setState({ mode: 'json' })
     }
-
+    
     render() {
         const {
             mapping,

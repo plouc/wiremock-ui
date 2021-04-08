@@ -1,4 +1,42 @@
 import * as Yup from 'yup'
+// import {parseXml} from 'libxmljs2';
+// tslint:disable-next-line: no-console
+// console.log(parseXml)
+Yup.addMethod(Yup.string, "validateXML", function (args) {
+    const { message } = args;
+    return this.test('test-name', message, function(value) {
+        const { path, createError } = this;
+        if (!value) {
+          return createError({ path, message: 'Response body is required' });
+        }
+        else {
+            try{
+                const domParser = new DOMParser();
+                const dom = domParser.parseFromString(value, 'text/xml');
+                return value
+            } catch(error){
+                return createError({ path, message: 'Error processing response body' });
+            }
+        }
+    });
+});
+
+Yup.addMethod(Yup.string, "validateJSON", function (args) {
+    const { message } = args;
+    return this.test('test-name', message, function(value) {
+        const { path, createError } = this;
+        if (!value) {
+          return createError({ path, message: 'Response body is required' });
+        } else {
+            try{
+                JSON.parse(value)
+                return value
+            } catch(error){
+                return createError({ path, message: 'Error processing response body' });
+            }
+        }
+    });
+});
 
 export const mappingValidationSchema = Yup.object().shape({
     method: Yup.string()
@@ -30,5 +68,44 @@ export const mappingValidationSchema = Yup.object().shape({
             .required('Header name is required'),
         value: Yup.string()
             .required('Header value is required'),
-    }))
-})
+    })),
+    bodyType: Yup.string()
+        .default('JSON')
+        .oneOf(['JSON','XML']),
+    responseBody: Yup.string()
+        .when('bodyType', {
+            is: 'JSON',
+            then: Yup.string().test('test-name', 'JSON is valid', function(value) {
+                const { path, createError } = this;
+                if (!value) {
+                  return createError({ path, message: 'Response body is required' });
+                }
+                else {
+                    try{
+                        JSON.parse(value)
+                        return value
+                    } catch(error){
+                        return createError({ path, message: 'Invalid JSON' });
+                    }
+                }
+            })
+        })
+        .when('bodyType', {
+            is: 'XML',
+            then: Yup.string().test('test-name', 'XML is valid', function(value) {
+                const { path, createError } = this;
+                if (!value) {
+                  return createError({ path, message: 'Response body is required' });
+                }
+                else {
+                    try{
+                        return value
+                    } catch(error){
+                        // tslint:disable-next-line: no-console
+                        console.log("error")
+                        return createError({ path, message: 'Invalid XML' });
+                    }
+                }
+            })
+        })
+}, [['bodyType', 'responseBody']])
