@@ -32,7 +32,8 @@ const testMapping: IMapping = {
     },
     response: {
         status: 200,
-    }
+    },
+    persistent: false,
 }
 
 describe('loadServerMappings', () => {

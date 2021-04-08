@@ -99,7 +99,9 @@ export default class BuilderRequest extends React.Component<IBuilderRequestProps
                                 />
                             )}
                             {paramsType === 'body' && (
-                                <BodyPatternParams
+                                <RequestParams
+                                    type="requestBodyPatterns"
+                                    label="body pattern"
                                     values={values}
                                     errors={errors}
                                     touched={touched}

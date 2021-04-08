@@ -32,22 +32,20 @@ export const mappingRequestParamsToFormValue = (params?: IMappingRequestParams):
     return formValue
 }
 
-export const mappingRequestBodyPatternsToFormValue = (bodyPatterns?: IMappingRequestBodyPattern[]): IMappingRequestBodyPatternFormValue[] => {
-    const bodyPatternsFormValue: IMappingRequestBodyPatternFormValue[] = []
+export const mappingRequestBodyPatternsToFormValue = (bodyPatterns?: IMappingRequestBodyPattern[]): IMappingRequestParamFormValue[] => {
+    const bodyPatternsFormValue: IMappingRequestParamFormValue[] = []
     if (bodyPatterns === undefined || bodyPatterns.length === 0) {
         return bodyPatternsFormValue
     }
     
     bodyPatterns.forEach(bodyPattern => {
-        const index = 0;
         mappingRequestBodyPatternMatchTypes.forEach((matchType, index) => {
             if (bodyPattern[matchType] !== undefined) {
                 bodyPatternsFormValue.push({
-                    key: index,
+                    key: String(index),
                     matchType,
                     value: matchType === 'absent' ? '' : bodyPattern[matchType]!
                 })
-                index++;
             }
         })
     })
@@ -113,6 +111,7 @@ export const mappingToFormValues = (mapping: IMapping): IMappingFormValues => {
         responseBodyFileName: mapping.response.bodyFileName,
         responseDelayMilliseconds: mapping.response.fixedDelayMilliseconds,
         responseDelayDistribution: mapping.response.delayDistribution,
+        persistent: mapping.persistent
     }
 }
 
@@ -127,8 +126,8 @@ export const mappingRequestParamsFormValueToRequestParams = (params: IMappingReq
     }, {})
 }
 
-export const mappingRequestBodyPatternsFormValueToBodyPatterns = (bodyPatterns: IMappingRequestBodyPatternFormValue[]): IMappingRequestBodyPattern[] => {
-    return bodyPatterns.map((bodyPattern: IMappingRequestBodyPatternFormValue): IMappingRequestBodyPattern => ({
+export const mappingRequestBodyPatternsFormValueToBodyPatterns = (bodyPatterns: IMappingRequestParamFormValue[]): IMappingRequestBodyPattern[] => {
+    return bodyPatterns.map((bodyPattern: IMappingRequestParamFormValue): IMappingRequestBodyPattern => ({
         [bodyPattern.matchType]: bodyPattern.value,
     }))
 }
@@ -173,7 +172,8 @@ export const mappingFormValuesToMapping = (formValues: IMappingFormValues): IMap
             }), {}),
             fixedDelayMilliseconds: formValues.responseDelayMilliseconds,
             delayDistribution: formValues.responseDelayDistribution,
-        }
+        },
+        persistent: formValues.persistent
     }
 
     return mapping

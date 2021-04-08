@@ -118,6 +118,7 @@ export interface IMapping {
     priority?: number
     request: IMappingRequest
     response: IMappingResponse
+    persistent: boolean
 }
 
 export interface IMappingCollection {
@@ -165,5 +166,6 @@ export interface IMappingFormValues {
     responseDelayMilliseconds?: number
     responseDelayDistribution?:
         | IMappingResponseUniformDelayDistribution
-        | IMappingResponseLogNormalDelayDistribution
+        | IMappingResponseLogNormalDelayDistribution,
+    persistent: boolean
 }

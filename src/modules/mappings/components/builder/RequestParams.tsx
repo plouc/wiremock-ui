@@ -5,7 +5,7 @@ import { Button, Input, Select } from 'edikit'
 import { IMappingFormValues, mappingRequestParamMatchTypes } from '../../types'
 
 interface IRequestParamsProps {
-    type: 'queryParameters' | 'requestHeaders' | 'requestCookies'
+    type: 'queryParameters' | 'requestHeaders' | 'requestCookies' | 'requestBodyPatterns'
     label: string
     values: IMappingFormValues
     errors: FormikErrors<IMappingFormValues>
@@ -33,7 +33,7 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
                     <React.Fragment>
                         {values[type].map((param, index) => (
                             <React.Fragment key={param.key}>
-                                <Input
+                                {type !== 'requestBodyPatterns' && (<Input
                                     name={`${type}.${index}.key`}
                                     value={param.key}
                                     onChange={onChange}
@@ -43,15 +43,15 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
                                         gridColumnStart: 1,
                                         gridColumnEnd: 3,
                                     }}
-                                />
+                                />)}
                                 <Select
                                     name={`${type}.${index}.matchType`}
                                     value={param.matchType}
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     style={{
-                                        gridColumnStart: 3,
-                                        gridColumnEnd: 5,
+                                        gridColumnStart: type !== 'requestBodyPatterns' ? 3 : 1,
+                                        gridColumnEnd: type !== 'requestBodyPatterns' ? 5 : 3,
                                     }}
                                 >
                                     {mappingRequestParamMatchTypes.map(matchType => (
@@ -65,7 +65,7 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     style={{
-                                        gridColumnStart: 5,
+                                        gridColumnStart: type !== 'requestBodyPatterns' ? 5 : 3,
                                         gridColumnEnd: 8,
                                     }}
                                 />

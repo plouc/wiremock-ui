@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { InjectedFormikProps, withFormik } from 'formik'
-import { Builder, Block, Input } from 'edikit'
+import { Builder, Block, Input,Select  } from 'edikit'
 import { IMapping, IMappingFormValues } from '../types'
 import { mappingValidationSchema } from '../validation'
 import { mappingToFormValues, mappingFormValuesToMapping } from '../dto'
@@ -94,6 +94,7 @@ class MappingBuilder extends React.Component<
             setBuilderMode,
             setJsonMode,
             submitForm,
+            save
         } = this.props
         const {
             isRequestOpened,
@@ -102,12 +103,14 @@ class MappingBuilder extends React.Component<
         } = this.state
 
         return (
+
             <Container>
                 <MappingBar
                     mode={mode}
                     setBuilderMode={setBuilderMode}
                     setJsonMode={setJsonMode}
-                    save={submitForm}
+                    save={() => {
+                        save(mappingFormValuesToMapping(values))}}
                     deleteMapping={deleteMapping}
                 />
                 <Content isLoading={isLoading}>
@@ -127,6 +130,22 @@ class MappingBuilder extends React.Component<
                                         gridColumnEnd: 9,
                                     }}
                                 />
+                                <label htmlFor="persistent">
+                                    persistent
+                                </label>
+                                <Select
+                                        id="bodyType"
+                                        value={values.bodyType}
+                                        onChange={handleChange}
+                                        style={{
+                                            gridColumnStart: 2,
+                                            gridColumnEnd: 2,
+                                            width: "100%"
+                                        }}
+                                    >
+                                    <option value="true">true</option>
+                                    <option value="false">false</option>
+                                </Select>
                             </Grid>
                         </Block>
                         <BuilderRequest
