@@ -29,10 +29,10 @@ export const loadStateEpic: Epic<IAction, any> = action$ =>
 
                 let servers: any = localStorage.getItem('servers')
                 if (!servers) {
-                    // tslint:disable-next-line: no-console
-                    const defaultServers = require( '../../../../src/config/defaultServers.json') as ICfgMapping
                     const tempServers : IServer[] = []
-                    defaultServers.servers.forEach(cfgServer => {
+                    try {
+                        const defaultServers = require( '../../../../src/config/defaultServers.json') as ICfgMapping
+                        defaultServers.servers.forEach(cfgServer => {
                         const cfgAppend: IServer = {
                             name: cfgServer.name,
                             url: cfgServer.url,
@@ -42,7 +42,10 @@ export const loadStateEpic: Epic<IAction, any> = action$ =>
                             mappings: Array<IMapping>()
                         }
                         tempServers.push(cfgAppend)
-                    })
+                        })
+                    } catch (e) {
+                        // do nothing
+                    }
                     actions.push(initServers(tempServers))
                 }
                 if (servers) {

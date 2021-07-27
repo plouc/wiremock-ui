@@ -10,9 +10,9 @@ export type MappingRequestMethod =
 export type MappingRequestUrlMatchType =
     | 'url'
     | 'urlPattern'
-    | 'urlPath'
     | 'urlPathPattern'
     | 'anyUrl'
+    | 'urlPath'
 
 export type MappingRequestParamMatchType =
     | 'equalTo'

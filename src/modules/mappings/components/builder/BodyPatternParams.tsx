@@ -79,16 +79,12 @@ export default class BodyPatternParams extends React.Component<IRequestParamsPro
                         <Button
                             variant="primary"
                             onClick={() => {
-                                // tslint:disable-next-line:no-console
-                                console.log(values['requestBodyPatterns'])
                                 arrayHelpers.push({
                                     key: '',
                                     matchType: 'equalTo',
                                     value: '',
                                 })
                                 arrayHelpers.pop()
-                                // tslint:disable-next-line:no-console
-                                console.log(arrayHelpers)
                             }}
                             style={{
                                 gridColumnStart: 1,

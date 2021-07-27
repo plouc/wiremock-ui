@@ -111,7 +111,7 @@ export const mappingToFormValues = (mapping: IMapping): IMappingFormValues => {
         responseBodyFileName: mapping.response.bodyFileName,
         responseDelayMilliseconds: mapping.response.fixedDelayMilliseconds,
         responseDelayDistribution: mapping.response.delayDistribution,
-        persistent: mapping.persistent
+        persistent: true
     }
 }
 

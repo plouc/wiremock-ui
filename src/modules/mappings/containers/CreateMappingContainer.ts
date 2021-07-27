@@ -63,8 +63,6 @@ const mapDispatchToProps = (dispatch: Dispatch, props: IOwnProps) => ({
         ))
     },
     save: (mapping: IMapping) => {
-        // tslint:disable-next-line:no-console
-        console.log('tyring to save')
         dispatch(createMappingRequest(
             props.serverName,
             props.creationId,
