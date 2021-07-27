@@ -35,7 +35,11 @@ for typescript support.
 4. The first thing you do is: Add a server (use the adress of a running WireMock Server)
 
 ## Example default server configurations
-```{
+
+File can be placed at `src/config/defaultServers.json`
+
+```
+{
 	"servers" : [
 		{
 			"name" : "test server",
@@ -43,4 +47,5 @@ for typescript support.
 			"port" : null
 		}
   ]
-}```
+}
+```
