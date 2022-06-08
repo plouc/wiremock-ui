@@ -7,6 +7,10 @@ coverage
 # production
 build
 
+# deployment configurations
+Staticfile
+manifest.yml
+
 # logs
 npm-debug.log*
 yarn-debug.log*
@@ -22,3 +26,6 @@ lerna-debug.log*
 .env.development.local
 .env.test.local
 .env.production.local
+
+# config
+src/config/

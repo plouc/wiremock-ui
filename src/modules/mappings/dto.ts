@@ -111,7 +111,11 @@ export const mappingToFormValues = (mapping: IMapping): IMappingFormValues => {
         responseBodyFileName: mapping.response.bodyFileName,
         responseDelayMilliseconds: mapping.response.fixedDelayMilliseconds,
         responseDelayDistribution: mapping.response.delayDistribution,
-        persistent: true
+        persistent: true,
+        proxyBaseUrl: mapping.response.proxyBaseUrl,
+        scenarioName: mapping.scenarioName,
+        requiredScenarioState: mapping.requiredScenarioState,
+        newScenarioState: mapping.newScenarioState
     }
 }
 

@@ -109,6 +109,7 @@ export interface IMappingResponse {
     delayDistribution?:
         | IMappingResponseUniformDelayDistribution
         | IMappingResponseLogNormalDelayDistribution
+    proxyBaseUrl?: string
 }
 
 export interface IMapping {
@@ -118,7 +119,10 @@ export interface IMapping {
     priority?: number
     request: IMappingRequest
     response: IMappingResponse
-    persistent: boolean
+    persistent: boolean,
+    scenarioName?: string,
+    requiredScenarioState?: string,
+    newScenarioState?: string
 }
 
 export interface IMappingCollection {
@@ -167,5 +171,9 @@ export interface IMappingFormValues {
     responseDelayDistribution?:
         | IMappingResponseUniformDelayDistribution
         | IMappingResponseLogNormalDelayDistribution,
-    persistent: boolean
+    persistent: boolean,
+    proxyBaseUrl?: string,
+    scenarioName?: string,
+    requiredScenarioState?: string,
+    newScenarioState?: string
 }

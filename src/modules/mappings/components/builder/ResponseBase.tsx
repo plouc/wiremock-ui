@@ -166,9 +166,29 @@ export default class ResponseBase extends React.Component<IResponseBaseProps> {
                                     height: "400px"
                                 }}
                             />
-                            
 
-
+                            <label
+                                htmlFor="proxyBaseUrl"
+                                style={{
+                                    gridColumnStart: 1,
+                                    gridColumnEnd: 4,
+                                    width: "100%"
+                                }}
+                            >
+                                Proxy Base Url
+                            </label>  
+                            <Input
+                                id="proxyBaseUrl"
+                                value={values.proxyBaseUrl}
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                style={{
+                                    gridColumnStart: 1,
+                                    gridColumnEnd: 9,
+                                    width: "100%"
+                                }}
+                            />
+                        
                         </React.Fragment>
                     )
                 }}

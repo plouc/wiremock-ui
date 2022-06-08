@@ -9,6 +9,7 @@ import MappingBar from './MappingBar'
 import { Grid } from './builder/Builder_styled'
 import BuilderRequest from './builder/BuilderRequest'
 import BuilderResponse from './builder/BuilderResponse'
+import BuilderScenario from './builder/BuilderScenario'
 
 interface IMappingBuilderProps {
     mapping: IMapping
@@ -24,6 +25,7 @@ interface IMappingBuilderProps {
 interface IMappingBuilderState {
     isRequestOpened: boolean
     isResponseOpened: boolean
+    isScenarioOpened: boolean
     requestParamsType: 'query' | 'headers' | 'cookies' | 'body'
 }
 
@@ -49,6 +51,7 @@ class MappingBuilder extends React.Component<
         this.state = {
             isRequestOpened: true,
             isResponseOpened: true,
+            isScenarioOpened: true,
             requestParamsType: 'query',
         }
     }
@@ -78,6 +81,12 @@ class MappingBuilder extends React.Component<
         })
     }
 
+    toggleScenario = () => {
+        this.setState({
+            isScenarioOpened: !this.state.isScenarioOpened
+        })
+    }
+
     updateRequestParamsType = (requestParamsType: 'query' | 'headers' | 'cookies' | 'body') => {
         this.setState({ requestParamsType })
     }
@@ -99,6 +108,7 @@ class MappingBuilder extends React.Component<
         const {
             isRequestOpened,
             isResponseOpened,
+            isScenarioOpened,
             requestParamsType,
         } = this.state
 
@@ -169,6 +179,17 @@ class MappingBuilder extends React.Component<
                             onBlur={this.handleBlur}
                             sync={this.sync}
                         />
+                        <BuilderScenario
+                            isOpened={isScenarioOpened}
+                            onToggle={this.toggleScenario}
+                            values={values}
+                            touched={touched}
+                            errors={errors}
+                            onChange={handleChange}
+                            onBlur={this.handleBlur}
+                            sync={this.sync}
+                        />
+                        
                     </Builder>
                 </Content>
             </Container>
