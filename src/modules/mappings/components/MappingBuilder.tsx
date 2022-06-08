@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { InjectedFormikProps, withFormik } from 'formik'
-import { Builder, Block, Input } from 'edikit'
+import { Builder, Block, Input,Select  } from 'edikit'
 import { IMapping, IMappingFormValues } from '../types'
 import { mappingValidationSchema } from '../validation'
 import { mappingToFormValues, mappingFormValuesToMapping } from '../dto'
@@ -9,6 +9,7 @@ import MappingBar from './MappingBar'
 import { Grid } from './builder/Builder_styled'
 import BuilderRequest from './builder/BuilderRequest'
 import BuilderResponse from './builder/BuilderResponse'
+import BuilderScenario from './builder/BuilderScenario'
 
 interface IMappingBuilderProps {
     mapping: IMapping
@@ -24,6 +25,7 @@ interface IMappingBuilderProps {
 interface IMappingBuilderState {
     isRequestOpened: boolean
     isResponseOpened: boolean
+    isScenarioOpened: boolean
     requestParamsType: 'query' | 'headers' | 'cookies' | 'body'
 }
 
@@ -49,6 +51,7 @@ class MappingBuilder extends React.Component<
         this.state = {
             isRequestOpened: true,
             isResponseOpened: true,
+            isScenarioOpened: true,
             requestParamsType: 'query',
         }
     }
@@ -78,6 +81,12 @@ class MappingBuilder extends React.Component<
         })
     }
 
+    toggleScenario = () => {
+        this.setState({
+            isScenarioOpened: !this.state.isScenarioOpened
+        })
+    }
+
     updateRequestParamsType = (requestParamsType: 'query' | 'headers' | 'cookies' | 'body') => {
         this.setState({ requestParamsType })
     }
@@ -94,20 +103,24 @@ class MappingBuilder extends React.Component<
             setBuilderMode,
             setJsonMode,
             submitForm,
+            save
         } = this.props
         const {
             isRequestOpened,
             isResponseOpened,
+            isScenarioOpened,
             requestParamsType,
         } = this.state
 
         return (
+
             <Container>
                 <MappingBar
                     mode={mode}
                     setBuilderMode={setBuilderMode}
                     setJsonMode={setJsonMode}
-                    save={submitForm}
+                    save={() => {
+                        save(mappingFormValuesToMapping(values))}}
                     deleteMapping={deleteMapping}
                 />
                 <Content isLoading={isLoading}>
@@ -127,6 +140,22 @@ class MappingBuilder extends React.Component<
                                         gridColumnEnd: 9,
                                     }}
                                 />
+                                <label htmlFor="persistent">
+                                    persistent
+                                </label>
+                                <Select
+                                        id="bodyType"
+                                        value={values.bodyType}
+                                        onChange={handleChange}
+                                        style={{
+                                            gridColumnStart: 2,
+                                            gridColumnEnd: 2,
+                                            width: "100%"
+                                        }}
+                                    >
+                                    <option value="true">true</option>
+                                    <option value="false">false</option>
+                                </Select>
                             </Grid>
                         </Block>
                         <BuilderRequest
@@ -150,6 +179,17 @@ class MappingBuilder extends React.Component<
                             onBlur={this.handleBlur}
                             sync={this.sync}
                         />
+                        <BuilderScenario
+                            isOpened={isScenarioOpened}
+                            onToggle={this.toggleScenario}
+                            values={values}
+                            touched={touched}
+                            errors={errors}
+                            onChange={handleChange}
+                            onBlur={this.handleBlur}
+                            sync={this.sync}
+                        />
+                        
                     </Builder>
                 </Content>
             </Container>

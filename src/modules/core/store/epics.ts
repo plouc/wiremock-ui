@@ -2,10 +2,21 @@ import { Epic, combineEpics } from 'redux-observable'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
 import { initSettings } from '../../settings'
-import { initServers } from '../../servers'
+import { initServers, IServer } from '../../servers'
+import { IMapping } from '../../mappings'
 import { IAction } from '../../../store'
 import { loadState, loadStateFinished } from './actions'
 import { CoreActionTypes } from './types'
+
+interface ICfgServer {
+    name: string;
+    url: string;
+    port: number
+}
+
+interface ICfgMapping {
+    servers: ICfgServer[]
+}
 
 export const loadStateEpic: Epic<IAction, any> = action$ =>
     action$.ofType(CoreActionTypes.LOAD_STATE)
@@ -17,6 +28,26 @@ export const loadStateEpic: Epic<IAction, any> = action$ =>
                 })]
 
                 let servers: any = localStorage.getItem('servers')
+                if (!servers) {
+                    const tempServers : IServer[] = []
+                    try {
+                        const defaultServers = require( '../../../../src/config/defaultServers.json') as ICfgMapping
+                        defaultServers.servers.forEach(cfgServer => {
+                        const cfgAppend: IServer = {
+                            name: cfgServer.name,
+                            url: cfgServer.url,
+                            port: cfgServer.port,
+                            mappingsHaveBeenLoaded: false,
+                            isLoadingMappings: false,
+                            mappings: Array<IMapping>()
+                        }
+                        tempServers.push(cfgAppend)
+                        })
+                    } catch (e) {
+                        // do nothing
+                    }
+                    actions.push(initServers(tempServers))
+                }
                 if (servers) {
                     servers = JSON.parse(servers)
                     actions.push(initServers(servers))

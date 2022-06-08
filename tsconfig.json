@@ -21,6 +21,7 @@
       "edikit": ["src/edikit"]
     }
   },
+
   "exclude": [
     "node_modules",
     "build",

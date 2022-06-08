@@ -14,7 +14,7 @@ interface IRequestUrlDetailsProps {
 export default class RequestUrlDetails extends React.Component<IRequestUrlDetailsProps> {
     render() {
         const { values, onChange, onBlur } = this.props
-
+        
         return (
             <React.Fragment>
                 <label htmlFor="priority">

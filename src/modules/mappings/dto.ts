@@ -32,16 +32,17 @@ export const mappingRequestParamsToFormValue = (params?: IMappingRequestParams):
     return formValue
 }
 
-export const mappingRequestBodyPatternsToFormValue = (bodyPatterns?: IMappingRequestBodyPattern[]): IMappingRequestBodyPatternFormValue[] => {
-    const bodyPatternsFormValue: IMappingRequestBodyPatternFormValue[] = []
+export const mappingRequestBodyPatternsToFormValue = (bodyPatterns?: IMappingRequestBodyPattern[]): IMappingRequestParamFormValue[] => {
+    const bodyPatternsFormValue: IMappingRequestParamFormValue[] = []
     if (bodyPatterns === undefined || bodyPatterns.length === 0) {
         return bodyPatternsFormValue
     }
-
+    
     bodyPatterns.forEach(bodyPattern => {
-        mappingRequestBodyPatternMatchTypes.forEach(matchType => {
+        mappingRequestBodyPatternMatchTypes.forEach((matchType, index) => {
             if (bodyPattern[matchType] !== undefined) {
                 bodyPatternsFormValue.push({
+                    key: String(index),
                     matchType,
                     value: matchType === 'absent' ? '' : bodyPattern[matchType]!
                 })
@@ -50,6 +51,18 @@ export const mappingRequestBodyPatternsToFormValue = (bodyPatterns?: IMappingReq
     })
 
     return bodyPatternsFormValue
+}
+
+export const formatResponseBody = (mapping: IMapping): IMappingFormValues => {
+    const res = mappingToFormValues(mapping);
+    if (res.bodyType === 'JSON') {
+        try {
+            res.responseBody = JSON.stringify(res.responseBody, null, 2);
+        } catch (e) {
+            // do nothing
+        }
+    }
+    return res;
 }
 
 export const mappingToFormValues = (mapping: IMapping): IMappingFormValues => {
@@ -98,6 +111,11 @@ export const mappingToFormValues = (mapping: IMapping): IMappingFormValues => {
         responseBodyFileName: mapping.response.bodyFileName,
         responseDelayMilliseconds: mapping.response.fixedDelayMilliseconds,
         responseDelayDistribution: mapping.response.delayDistribution,
+        persistent: true,
+        proxyBaseUrl: mapping.response.proxyBaseUrl,
+        scenarioName: mapping.scenarioName,
+        requiredScenarioState: mapping.requiredScenarioState,
+        newScenarioState: mapping.newScenarioState
     }
 }
 
@@ -112,8 +130,8 @@ export const mappingRequestParamsFormValueToRequestParams = (params: IMappingReq
     }, {})
 }
 
-export const mappingRequestBodyPatternsFormValueToBodyPatterns = (bodyPatterns: IMappingRequestBodyPatternFormValue[]): IMappingRequestBodyPattern[] => {
-    return bodyPatterns.map((bodyPattern: IMappingRequestBodyPatternFormValue): IMappingRequestBodyPattern => ({
+export const mappingRequestBodyPatternsFormValueToBodyPatterns = (bodyPatterns: IMappingRequestParamFormValue[]): IMappingRequestBodyPattern[] => {
+    return bodyPatterns.map((bodyPattern: IMappingRequestParamFormValue): IMappingRequestBodyPattern => ({
         [bodyPattern.matchType]: bodyPattern.value,
     }))
 }
@@ -158,7 +176,8 @@ export const mappingFormValuesToMapping = (formValues: IMappingFormValues): IMap
             }), {}),
             fixedDelayMilliseconds: formValues.responseDelayMilliseconds,
             delayDistribution: formValues.responseDelayDistribution,
-        }
+        },
+        persistent: formValues.persistent
     }
 
     return mapping

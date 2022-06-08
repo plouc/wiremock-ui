@@ -5,8 +5,6 @@ import { Button, Input, Select } from 'edikit'
 import { IMappingFormValues, mappingRequestParamMatchTypes } from '../../types'
 
 interface IRequestParamsProps {
-    type: 'queryParameters' | 'requestHeaders' | 'requestCookies' | 'requestBodyPatterns'
-    label: string
     values: IMappingFormValues
     errors: FormikErrors<IMappingFormValues>
     touched: FormikTouched<IMappingFormValues>
@@ -14,11 +12,9 @@ interface IRequestParamsProps {
     onBlur(e: any): void
 }
 
-export default class RequestParams extends React.Component<IRequestParamsProps> {
+export default class BodyPatternParams extends React.Component<IRequestParamsProps> {
     render() {
         const {
-            type,
-            label,
             values,
             errors,
             touched,
@@ -28,30 +24,19 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
 
         return (
             <FieldArray
-                name={type}
+                name={'body patterns'}
                 render={arrayHelpers => (
                     <React.Fragment>
-                        {values[type].map((param, index) => (
-                            <React.Fragment key={param.key}>
-                                {type !== 'requestBodyPatterns' && (<Input
-                                    name={`${type}.${index}.key`}
-                                    value={param.key}
-                                    onChange={onChange}
-                                    onBlur={onBlur}
-                                    placeholder={`${label} key`}
-                                    style={{
-                                        gridColumnStart: 1,
-                                        gridColumnEnd: 3,
-                                    }}
-                                />)}
+                        {values['requestBodyPatterns'].map((param, index) => (
+                            <React.Fragment key={index}>
                                 <Select
-                                    name={`${type}.${index}.matchType`}
+                                    name={`$bodyParams.${index}.matchType`}
                                     value={param.matchType}
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     style={{
-                                        gridColumnStart: type !== 'requestBodyPatterns' ? 3 : 1,
-                                        gridColumnEnd: type !== 'requestBodyPatterns' ? 5 : 3,
+                                        gridColumnStart: 1,
+                                        gridColumnEnd: 3,
                                     }}
                                 >
                                     {mappingRequestParamMatchTypes.map(matchType => (
@@ -59,13 +44,13 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
                                     ))}
                                 </Select>
                                 <Input
-                                    name={`${type}.${index}.value`}
+                                    name={`$bodyParams.${index}.value`}
                                     placeholder="expected value"
                                     value={param.value}
                                     onChange={onChange}
                                     onBlur={onBlur}
                                     style={{
-                                        gridColumnStart: type !== 'requestBodyPatterns' ? 5 : 3,
+                                        gridColumnStart: 3,
                                         gridColumnEnd: 8,
                                     }}
                                 />
@@ -79,14 +64,14 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
                                         }}
                                     />
                                 </div>
-                                {getIn(errors, `${type}.${index}.key`) && getIn(touched, `${type}.${index}.key`) && (
+                                {getIn(errors, `$bodyParams.${index}`) && getIn(touched, `$bodyParams.${index}`) && (
                                     <div style={{ color: 'red', gridColumnStart: 1, gridColumnEnd: 3 }}>
-                                        {getIn(errors, `${type}.${index}.key`)}
+                                        {getIn(errors, `$bodyParams.${index}`)}
                                     </div>
                                 )}
-                                {getIn(errors, `${type}.${index}.value`) && getIn(touched, `${type}.${index}.value`) && (
+                                {getIn(errors, `$bodyParams.${index}`) && getIn(touched, `$bodyParams.${index}`) && (
                                     <div style={{ color: 'red', gridColumnStart: 5, gridColumnEnd: 7 }}>
-                                        {getIn(errors, `${type}.${index}.value`)}
+                                        {getIn(errors, `$bodyParams.${index}`)}
                                     </div>
                                 )}
                             </React.Fragment>
@@ -99,6 +84,7 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
                                     matchType: 'equalTo',
                                     value: '',
                                 })
+                                arrayHelpers.pop()
                             }}
                             style={{
                                 gridColumnStart: 1,
@@ -106,7 +92,7 @@ export default class RequestParams extends React.Component<IRequestParamsProps> 
                                 height: '30px',
                             }}
                         >
-                            Add {label}
+                            Add Body Pattern
                         </Button>
                     </React.Fragment>
                 )}

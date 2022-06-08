@@ -5,6 +5,7 @@ import {IPaneContent, ITheme} from 'edikit'
 import { Tree, ITreeNode } from './Tree'
 import { IData } from '../../../types'
 import { IServer } from '../../servers'
+import { IMapping } from '../../mappings'
 import MapingIcon from '../../mappings/components/MappingIcon'
 
 export interface IExplorerProps {
@@ -26,6 +27,8 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
         this.state = {
             openedIds: ['root'],
         }
+
+
     }
 
     getTreeNodeIcon = (node: ITreeNode): React.ReactNode => {

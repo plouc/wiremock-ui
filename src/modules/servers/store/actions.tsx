@@ -3,6 +3,16 @@ import { action } from 'typesafe-actions'
 import { ServersActionTypes } from './types'
 import { IServer } from '../types'
 
+interface ICfgServer {
+    name: string;
+    url: string;
+    port: number
+}
+
+interface ICfgMapping {
+    servers: ICfgServer[]
+}
+
 export interface IInitServersAction {
     type: ServersActionTypes.INIT_SERVERS
     payload: {
@@ -10,8 +20,7 @@ export interface IInitServersAction {
     }
 }
 
-export const initServers = (servers: IServer[]) =>
-    action(ServersActionTypes.INIT_SERVERS, { servers })
+export const initServers = (servers: IServer[]) => action(ServersActionTypes.INIT_SERVERS, { servers })
 
 export interface ICreateServerAction {
     type: ServersActionTypes.CREATE_SERVER
