@@ -2251,6 +2251,22 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
+edikit@1.0.0-alpha.4:
+  version "1.0.0-alpha.4"
+  resolved "https://registry.yarnpkg.com/edikit/-/edikit-1.0.0-alpha.4.tgz#66ae574d3c1037e07f6fa43ab6a4ea300d074e4b"
+  dependencies:
+    brace "^0.11.1"
+    lodash "^4.17.10"
+    react-ace "^6.1.4"
+    react-feather "^1.1.1"
+    react-redux "^5.0.7"
+    react-split-pane "^0.1.82"
+    redux "^4.0.0"
+    redux-observable "^1.0.0"
+    rxjs "^6.2.2"
+    styled-components "^3.4.2"
+    typesafe-actions "^2.0.4"
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -2804,10 +2820,8 @@ fn-name@~2.0.1:
   resolved "https://registry.yarnpkg.com/fn-name/-/fn-name-2.0.1.tgz#5214d7537a4d06a4a301c0cc262feb84188002e7"
 
 follow-redirects@^1.0.0:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.2.tgz#5a9d80e0165957e5ef0c1210678fc5c4acb9fb03"
-  dependencies:
-    debug "^3.1.0"
+  version "1.15.6"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.6.tgz#7f815c0cda4249c74ff09e95ef97c23b5fd0399b"
 
 for-in@^1.0.1, for-in@^1.0.2:
   version "1.0.2"
