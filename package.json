@@ -8,7 +8,7 @@
     "@types/react-redux": "^6.0.6",
     "@types/yup": "^0.24.7",
     "brace": "^0.11.1",
-    "edikit": "*",
+    "edikit": "1.0.0-alpha.4",
     "formik": "^1.0.2",
     "lodash": "^4.17.10",
     "react": "^16.4.2",
