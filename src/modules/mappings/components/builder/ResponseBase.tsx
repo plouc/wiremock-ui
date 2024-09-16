@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Trash2, PlusCircle } from 'react-feather'
 import { FieldArray, FormikErrors, FormikTouched, getIn } from 'formik'
-import { Button, Input } from 'edikit'
+import { Button, Input, Select, TextArea } from 'edikit'
 import { IMappingFormValues } from '../../types'
 
 interface IResponseBaseProps {
@@ -27,9 +27,30 @@ export default class ResponseBase extends React.Component<IResponseBaseProps> {
         return (
             <FieldArray
                 name="responseHeaders"
+
                 render={helpers => {
                     return (
                         <React.Fragment>
+                            <label
+                                htmlFor="responseStatus"
+                                style={{
+                                    gridColumnStart: 1,
+                                    gridColumnEnd: 1
+                                }}
+                            >
+                                Status
+                            </label>
+                            <Input
+                                id="responseStatus"
+                                value={values.responseStatus}
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                style={{
+                                    gridColumnStart: 2,
+                                    gridColumnEnd: 2
+                                }}
+                            />
+
                             <Button
                                 variant="default"
                                 icon={<PlusCircle size={14}/>}
@@ -46,20 +67,7 @@ export default class ResponseBase extends React.Component<IResponseBaseProps> {
                             >
                                 Header
                             </Button>
-                            <label
-                                htmlFor="responseStatus"
-                                style={{
-                                    gridColumnStart: 4
-                                }}
-                            >
-                                Status
-                            </label>
-                            <Input
-                                id="responseStatus"
-                                value={values.responseStatus}
-                                onChange={onChange}
-                                onBlur={onBlur}
-                            />
+                            
                             {errors.responseStatus && touched.responseStatus && (
                                 <div style={{ color: 'red', gridColumnStart: 6, gridColumnEnd: 9 }}>
                                     {errors.responseStatus}
@@ -114,6 +122,73 @@ export default class ResponseBase extends React.Component<IResponseBaseProps> {
                                     )}
                                 </React.Fragment>
                             ))}
+
+                            <label
+                                htmlFor="responseBody"
+                                style={{
+                                    gridColumnStart: 1,
+                                    gridColumnEnd: 1,
+                                    width: "100%"
+                                }}
+                            >
+                                Body
+                            </label>                
+
+                            <Select
+                                id="bodyType"
+                                value={values.bodyType}
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                style={{
+                                    gridColumnStart: 2,
+                                    gridColumnEnd: 2,
+                                    width: "100%"
+                                }}
+                            >
+                                <option value="JSON">JSON</option>
+                                <option value="XML">XML</option>
+                            </Select>
+
+                            {errors.responseBody && (
+                                <div style={{ color: 'red', gridColumnStart: 6, gridColumnEnd: 9 }}>
+                                    {errors.responseBody}
+                                </div>
+                            )}
+                            <TextArea
+                                id="responseBody"
+                                value={values.responseBody}
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                style={{
+                                    gridColumnStart: 1,
+                                    gridColumnEnd: 9,
+                                    width: "100%",
+                                    height: "400px"
+                                }}
+                            />
+
+                            <label
+                                htmlFor="proxyBaseUrl"
+                                style={{
+                                    gridColumnStart: 1,
+                                    gridColumnEnd: 4,
+                                    width: "100%"
+                                }}
+                            >
+                                Proxy Base Url
+                            </label>  
+                            <Input
+                                id="proxyBaseUrl"
+                                value={values.proxyBaseUrl}
+                                onChange={onChange}
+                                onBlur={onBlur}
+                                style={{
+                                    gridColumnStart: 1,
+                                    gridColumnEnd: 9,
+                                    width: "100%"
+                                }}
+                            />
+                        
                         </React.Fragment>
                     )
                 }}

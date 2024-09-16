@@ -10,9 +10,9 @@ export type MappingRequestMethod =
 export type MappingRequestUrlMatchType =
     | 'url'
     | 'urlPattern'
-    | 'urlPath'
     | 'urlPathPattern'
     | 'anyUrl'
+    | 'urlPath'
 
 export type MappingRequestParamMatchType =
     | 'equalTo'
@@ -109,6 +109,7 @@ export interface IMappingResponse {
     delayDistribution?:
         | IMappingResponseUniformDelayDistribution
         | IMappingResponseLogNormalDelayDistribution
+    proxyBaseUrl?: string
 }
 
 export interface IMapping {
@@ -118,6 +119,10 @@ export interface IMapping {
     priority?: number
     request: IMappingRequest
     response: IMappingResponse
+    persistent: boolean,
+    scenarioName?: string,
+    requiredScenarioState?: string,
+    newScenarioState?: string
 }
 
 export interface IMappingCollection {
@@ -134,6 +139,7 @@ export interface IMappingRequestParamFormValue {
 }
 
 export interface IMappingRequestBodyPatternFormValue {
+    key: number
     matchType: MappingRequestParamMatchType
     value: string
 }
@@ -147,6 +153,7 @@ export interface IMappingFormValues {
     id: string
     uuid: string
     name?: string
+    bodyType?: string
     priority: 'auto' | number
     method: MappingRequestMethod
     url: string
@@ -154,7 +161,7 @@ export interface IMappingFormValues {
     queryParameters: IMappingRequestParamFormValue[]
     requestHeaders: IMappingRequestParamFormValue[]
     requestCookies: IMappingRequestParamFormValue[]
-    requestBodyPatterns: IMappingRequestBodyPatternFormValue[]
+    requestBodyPatterns: IMappingRequestParamFormValue[]
     responseStatus: number
     responseFault?: MappingResponseFault
     responseHeaders: IMappingResponseHeaderFormValue[]
@@ -163,5 +170,10 @@ export interface IMappingFormValues {
     responseDelayMilliseconds?: number
     responseDelayDistribution?:
         | IMappingResponseUniformDelayDistribution
-        | IMappingResponseLogNormalDelayDistribution
+        | IMappingResponseLogNormalDelayDistribution,
+    persistent: boolean,
+    proxyBaseUrl?: string,
+    scenarioName?: string,
+    requiredScenarioState?: string,
+    newScenarioState?: string
 }

@@ -270,6 +270,7 @@ export const initCreateMapping = (
             response: {
                 status: 200,
             },
+            persistent: false
         }
     }
 )

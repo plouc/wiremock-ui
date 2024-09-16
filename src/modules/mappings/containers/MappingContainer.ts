@@ -83,7 +83,7 @@ const mapDispatchToProps = (dispatch: Dispatch, props: IOwnProps) => ({
             props.serverName,
             props.mappingId
         ))
-    },
+    }
 })
 
 export default connect(

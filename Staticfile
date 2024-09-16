@@ -1,0 +1,4 @@
+pushstate: enabled
+host_dot_files: true
+status_codes:
+  404: index.html

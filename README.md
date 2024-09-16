@@ -33,3 +33,19 @@ for typescript support.
 3. Type: yarn start
 
 4. The first thing you do is: Add a server (use the adress of a running WireMock Server)
+
+## Example default server configurations
+
+File can be placed at `src/config/defaultServers.json`
+
+```
+{
+	"servers" : [
+		{
+			"name" : "test server",
+			"url" : "http://test-server-wired.app.com",
+			"port" : null
+		}
+  ]
+}
+```

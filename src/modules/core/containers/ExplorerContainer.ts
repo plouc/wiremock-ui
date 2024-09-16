@@ -3,9 +3,9 @@ import { connect } from 'react-redux'
 import { panesCurrentContentsSelector, uuid } from 'edikit'
 import { ITreeNode } from '../components/Tree'
 import { IApplicationState } from '../../../store'
-import { loadServerMappings, getMappingUrl } from '../../mappings'
+import { loadServerMappings, getMappingUrl, IMapping } from '../../mappings'
 import { IServer } from '../../servers'
-import Explorer from '../components/Explorer'
+import Explorer from '../../../../src/modules/core/components/Explorer'
 
 const mapStateToProps = (
     {
@@ -28,6 +28,7 @@ const mapStateToProps = (
     }
 
     servers.forEach(server => {
+
         const serverNode = {
             id: server.name,
             label: server.name,
