@@ -1,16 +1,16 @@
-import { Epic, combineEpics } from 'redux-observable'
+import { combineEpics, Epic } from 'redux-observable'
 import { from } from 'rxjs'
 import { mergeMap } from 'rxjs/operators'
-import { initSettings } from '../../settings'
-import { initServers } from '../../servers'
 import { IAction } from '../../../store'
-import { loadState, loadStateFinished } from './actions'
+import { initServers } from '../../servers'
+import { initSettings } from '../../settings'
+import { loadStateFinished } from './actions'
 import { CoreActionTypes } from './types'
 
 export const loadStateEpic: Epic<IAction, any> = action$ =>
     action$.ofType(CoreActionTypes.LOAD_STATE)
         .pipe(
-            mergeMap((action: typeof loadState) => {
+            mergeMap(() => {
                 const theme = localStorage.getItem('theme') || 'solarized dark'
                 const actions: IAction[] = [initSettings({
                     theme
@@ -32,3 +32,4 @@ export const loadStateEpic: Epic<IAction, any> = action$ =>
 export const coreEpic = combineEpics(
     loadStateEpic
 )
+
