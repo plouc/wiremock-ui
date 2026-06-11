@@ -1,5 +1,5 @@
-import 'brace'
-import 'brace/theme/solarized_dark'
+import 'ace-builds'
+import 'ace-builds/src-noconflict/theme-solarized_dark'
 import { css } from 'styled-components'
 import { IThemeTypography, IThemeColors, ITheme } from '../types'
 

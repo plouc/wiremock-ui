@@ -41,7 +41,6 @@ export default class CreateMapping extends React.Component<ICreateMappingProps, 
 
     render() {
         const {
-            creationId,
             mapping,
             isCreating,
             save,

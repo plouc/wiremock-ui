@@ -1,4 +1,5 @@
-import 'brace/theme/chaos'
+import 'ace-builds'
+import 'ace-builds/src-noconflict/theme-chaos'
 import { ITheme, IThemeColors, IThemeTypography } from '../types'
 import {css} from "styled-components";
 

@@ -4,6 +4,7 @@ import { panesCurrentContentsSelector, uuid } from 'edikit'
 import { ITreeNode } from '../components/Tree'
 import { IApplicationState } from '../../../store'
 import { loadServerMappings, getMappingUrl } from '../../mappings'
+import { loadServerRequests } from '../../requests'
 import { IServer } from '../../servers'
 import Explorer from '../components/Explorer'
 
@@ -75,6 +76,16 @@ const mapStateToProps = (
             serverNode.children.push(mappingsNode)
         }
 
+        // Add requests node for each server
+        serverNode.children.push({
+            id: `${server.name}.requests`,
+            type: 'requests',
+            label: 'requests',
+            data: {
+                serverName: server.name,
+            },
+        })
+
         tree.children!.push(serverNode)
     })
 
@@ -90,6 +101,9 @@ const mapStateToProps = (
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     loadServerMappings: (server: IServer) => {
         dispatch(loadServerMappings(server))
+    },
+    loadServerRequests: (server: IServer) => {
+        dispatch(loadServerRequests(server))
     },
 })
 

@@ -1,4 +1,4 @@
-import { action, createAction } from 'typesafe-actions'
+import { action } from 'typesafe-actions'
 import uuid from '../../util/uuid'
 import { INotification } from '../types'
 import { NotificationsActionTypes } from './types'
@@ -15,17 +15,17 @@ export interface ITriggerNotificationAction {
     }
 }
 
-export const triggerNotification = createAction(
+export const triggerNotification = (
+    notification: ITriggerNotification
+): ITriggerNotificationAction => action(
     NotificationsActionTypes.TRIGGER_NOTIFICATION,
-    resolve => (
-        notification: ITriggerNotification
-    ) => resolve({
+    {
         notification: {
             id: uuid(),
             type: 'default',
             ...notification,
         },
-    })
+    }
 )
 
 export interface ICloseNotificationAction {

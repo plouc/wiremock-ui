@@ -1,0 +1,6 @@
+allowBuilds:
+  core-js: true
+  es5-ext: true
+  esbuild: true
+  styled-components: true
+  uglifyjs-webpack-plugin: true

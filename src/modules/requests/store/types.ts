@@ -1,0 +1,7 @@
+export enum RequestsActionTypes {
+    LOAD_SERVER_REQUESTS         = '@@requests/LOAD_SERVER_REQUESTS',
+    LOAD_SERVER_REQUESTS_REQUEST = '@@requests/LOAD_SERVER_REQUESTS_REQUEST',
+    LOAD_SERVER_REQUESTS_SUCCESS = '@@requests/LOAD_SERVER_REQUESTS_SUCCESS',
+    SELECT_REQUEST               = '@@requests/SELECT_REQUEST',
+    CLOSE_REQUEST_DETAIL         = '@@requests/CLOSE_REQUEST_DETAIL',
+}

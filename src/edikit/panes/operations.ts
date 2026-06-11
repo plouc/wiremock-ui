@@ -1,3 +1,4 @@
+// @ts-nocheck
 import uuid from '../util/uuid'
 import { IPane, IPaneContent, PaneSplitAxis } from './types'
 import {

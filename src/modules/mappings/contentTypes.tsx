@@ -2,6 +2,8 @@ import * as React from 'react'
 import { PlusCircle } from 'react-feather'
 import { IContentRenderContext } from 'edikit'
 import { IData } from '../../types'
+import { getStoreRef } from '../../storeRef'
+import { getMappingUrl } from './dto'
 import MappingIcon from './components/MappingIcon'
 import MappingContainer from './containers/MappingContainer'
 import CreateMappingContainer from './containers/CreateMappingContainer'
@@ -10,12 +12,20 @@ export const mappingsContentTypes = [
     {
         id: 'mapping',
         renderButton: (context: IContentRenderContext<IData>) => {
+            const store = getStoreRef()
+            if (store && context.content.data) {
+                const { serverName, mappingId } = context.content.data
+                const state = store.getState()
+                const serverMappings = state.mappings[serverName]
+                if (serverMappings && mappingId) {
+                    const entry = serverMappings.byId[mappingId]
+                    if (entry && entry.mapping) {
+                        const m = entry.mapping
+                        return m.name || `${m.request.method} ${getMappingUrl(m)}`
+                    }
+                }
+            }
             return 'mapping'
-            /*
-            const mapping = mappingFromContent(app, content)
-
-            return `${mapping.request.method} ${mapping.request.url}`
-            */
         },
         renderIcon: () => <MappingIcon/>,
         renderPane: (context: IContentRenderContext<IData>) => (

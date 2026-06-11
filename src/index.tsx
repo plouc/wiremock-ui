@@ -1,13 +1,17 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import './globalStyles'
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+import GlobalStyles from './globalStyles'
 import './editorConfig'
 import Root from './Root'
 import configureStore from './configureStore'
+import { setStoreRef } from './storeRef'
 
 const store = configureStore()
+setStoreRef(store)
 
-ReactDOM.render(
-    <Root store={store}/>,
-    document.getElementById('root') as HTMLElement
+createRoot(document.getElementById('root')!).render(
+    <React.Fragment>
+        <GlobalStyles/>
+        <Root store={store}/>
+    </React.Fragment>
 )

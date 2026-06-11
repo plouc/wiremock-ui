@@ -1,11 +1,12 @@
 import * as React from 'react'
 import SplitPane from 'react-split-pane'
-import { ThemeProvider } from 'styled-components'
+import { ThemeProvider, StyleSheetManager } from 'styled-components'
 import { createPaneManager, IPaneContent, NotificationsContainer } from 'edikit'
 import themes from '../../../themes'
 import { ISettings, settingsContentTypes } from '../../settings'
 import { serversContentTypes } from '../../servers'
 import { mappingsContentTypes } from '../../mappings'
+import { requestsContentTypes } from '../../requests'
 import ExplorerContainer from '../containers/ExplorerContainer'
 import AppBar from './AppBar'
 import { Container, Inner } from './App_styled'
@@ -18,8 +19,17 @@ const PaneManager = createPaneManager<IApplicationState, IData>({
         ...settingsContentTypes,
         ...serversContentTypes,
         ...mappingsContentTypes,
+        ...requestsContentTypes,
     ],
 })
+
+const customProps = new Set([
+    'variant', 'hasContent', 'hasIcon', 'isDir', 'depth', 'iconCount',
+    'isCurrent', 'isLoading', 'size', 'wasMatched', 'withMarker',
+    'markerColor', 'withLink', 'isActive',
+])
+
+const shouldForwardProp = (prop: string) => !customProps.has(prop)
 
 export interface IAppProps {
     loadState: () => void
@@ -43,22 +53,24 @@ export default class App extends React.Component<IAppProps> {
         if (!hasBeenInitialized) return null
 
         return (
-            <ThemeProvider theme={themes[settings.theme]}>
-                <Container>
-                    <AppBar
-                        addContentToCurrentPane={addContentToCurrentPane}
-                    />
-                    <Inner>
-                        <SplitPane split="vertical" defaultSize={260}>
-                            <ExplorerContainer
-                                addContentToCurrentPane={addContentToCurrentPane}
-                            />
-                            <PaneManager/>
-                        </SplitPane>
-                    </Inner>
-                    <NotificationsContainer/>
-                </Container>
-            </ThemeProvider>
+            <StyleSheetManager shouldForwardProp={shouldForwardProp}>
+                <ThemeProvider theme={themes[settings.theme]}>
+                    <Container>
+                        <AppBar
+                            addContentToCurrentPane={addContentToCurrentPane}
+                        />
+                        <Inner>
+                            <SplitPane split="vertical" defaultSize={260}>
+                                <ExplorerContainer
+                                    addContentToCurrentPane={addContentToCurrentPane}
+                                />
+                                <PaneManager/>
+                            </SplitPane>
+                        </Inner>
+                        <NotificationsContainer/>
+                    </Container>
+                </ThemeProvider>
+            </StyleSheetManager>
         )
     }
 }

@@ -1,0 +1,13 @@
+{
+  "configurations": [
+    {
+      "name": "Launch via PNPM",
+      "request": "launch",
+      "runtimeArgs": ["run", "start"],
+      "runtimeExecutable": "pnpm",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node",
+      "console": "integratedTerminal"
+    }
+  ]
+}

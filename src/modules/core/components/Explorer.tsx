@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { withTheme } from 'styled-components'
-import { Server as ServerIcon, PlusCircle } from 'react-feather'
+import { Server as ServerIcon, PlusCircle, Activity as RequestsIcon } from 'react-feather'
 import {IPaneContent, ITheme} from 'edikit'
 import { Tree, ITreeNode } from './Tree'
 import { IData } from '../../../types'
@@ -11,6 +11,7 @@ export interface IExplorerProps {
     tree: ITreeNode
     servers: IServer[]
     loadServerMappings(server: IServer): void
+    loadServerRequests(server: IServer): void
     addContentToCurrentPane(content: IPaneContent<IData>): void
     theme: ITheme
 }
@@ -42,12 +43,17 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
             return <MapingIcon/>
         }
 
+        if (node.type === 'requests') {
+            return <RequestsIcon size={12} color={theme.colors.accent}/>
+        }
+
         return
     }
 
     handleNodeClick = (node: ITreeNode) => {
         const {
             loadServerMappings,
+            loadServerRequests,
             servers,
             addContentToCurrentPane,
         } = this.props
@@ -104,6 +110,22 @@ class Explorer extends React.Component<IExplorerProps, IExplorerState> {
                     creationId: node.data.creationId,
                 },
             })
+        }
+
+        if (node.type === 'requests' && node.data !== undefined) {
+            const server = servers.find(s => s.name === node.data!.serverName)
+            if (server !== undefined) {
+                loadServerRequests(server)
+                addContentToCurrentPane({
+                    id: `${server.name}.requests`,
+                    type: 'requests',
+                    isCurrent: true,
+                    isUnique: true,
+                    data: {
+                        serverName: server.name,
+                    },
+                })
+            }
         }
 
         let openedIds

@@ -1,6 +1,6 @@
-import { injectGlobal } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
 
-export default injectGlobal`
+const GlobalStyles = createGlobalStyle`
 body {
   margin: 0;
   padding: 0;
@@ -73,3 +73,5 @@ html, body, #root {
     border-color: transparent;
 }
 `
+
+export default GlobalStyles

@@ -12,6 +12,7 @@ export interface IThemeTypography {
 export interface IThemeColors {
     background: string
     text: string
+    textLight?: string
     border: string
     accent: string
     overAccent: string
@@ -22,6 +23,7 @@ export interface IThemeColors {
     overWarning: string
     danger: string
     overDanger: string
+    hover?: string
 }
 
 export interface IThemeBadge {
@@ -62,12 +64,14 @@ export interface IThemePane {
 export interface IThemeTree {
     container: {
         background: string
+        extend?: any
     }
     item: {
         color: string
         hover: {
             background: string
             color: string
+            extend?: any
         }
         current: {
             background: string

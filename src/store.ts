@@ -10,6 +10,7 @@ import {
 } from 'edikit'
 import { coreReducer, CoreAction, ICoreState, coreEpic } from './modules/core'
 import { mappingsReducer, IMappingsState, MappingsAction, mappingsEpic } from './modules/mappings'
+import { requestsReducer, IRequestsState, RequestsAction, requestsEpic } from './modules/requests'
 import { serversReducer, IServersState, ServersAction, serversEpic } from './modules/servers'
 import { settingsReducer, ISettingsState, SettingsAction } from './modules/settings'
 import { IData } from './types'
@@ -25,12 +26,14 @@ export type RootAction =
     | ServersAction
     | SettingsAction
     | MappingsAction
+    | RequestsAction
 
 export const rootEpic = combineEpics(
     notificationsEpic,
     coreEpic,
     serversEpic,
-    mappingsEpic
+    mappingsEpic,
+    requestsEpic
 )
 
 export interface IApplicationState {
@@ -40,6 +43,7 @@ export interface IApplicationState {
     settings: ISettingsState
     servers: IServersState
     mappings: IMappingsState
+    requests: IRequestsState
 }
 
 export const rootReducer = combineReducers<IApplicationState>({
@@ -49,4 +53,5 @@ export const rootReducer = combineReducers<IApplicationState>({
     settings: settingsReducer,
     servers: serversReducer,
     mappings: mappingsReducer,
+    requests: requestsReducer,
 })

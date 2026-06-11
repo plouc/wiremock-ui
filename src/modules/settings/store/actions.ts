@@ -1,5 +1,5 @@
 import { isString, isBoolean } from 'lodash'
-import { action, createAction } from 'typesafe-actions'
+import { action } from 'typesafe-actions'
 import { IAction } from '../../../store'
 import { SettingsActionTypes } from './types'
 import { ISettings } from '../types'
@@ -19,18 +19,15 @@ export interface ISetSettingAction extends IAction {
     }
 }
 
-export const setSetting = createAction(
-    SettingsActionTypes.SET_SETTING,
-    resolve => (key: string, value: any) => {
-        if (isString(value)) {
-            localStorage.setItem(key, value)
-        } else if (isBoolean(value)) {
-            localStorage.setItem(key, value ? 'true' : 'false')
-        }
-
-        return resolve({ key, value })
+export const setSetting = (key: string, value: any): ISetSettingAction => {
+    if (isString(value)) {
+        localStorage.setItem(key, value)
+    } else if (isBoolean(value)) {
+        localStorage.setItem(key, value ? 'true' : 'false')
     }
-)
+
+    return action(SettingsActionTypes.SET_SETTING, { key, value })
+}
 
 export type SettingsAction =
     | IInitSettingsAction

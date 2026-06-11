@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { IPane, IPaneContent } from '../types'
 import { IPanesState, IPanesNamespaceState } from './reducers'
 

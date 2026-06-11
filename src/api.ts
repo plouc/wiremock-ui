@@ -1,6 +1,7 @@
 import { ajax } from 'rxjs/ajax'
 import { IServer } from './modules/servers'
 import { IMapping } from './modules/mappings'
+import { IWiremockRequestsResponse } from './modules/requests'
 
 const buildApiUrl = (server: IServer, path: string): string =>
     `${server.url}${server.port ? `:${server.port}` : ''}/__admin${path}`
@@ -27,3 +28,6 @@ export const updateMapping = (server: IServer, mapping: IMapping) =>
 
 export const deleteMapping = (server: IServer, mappingId: string) =>
     ajax.delete(buildApiUrl(server, `/mappings/${mappingId}`))
+
+export const getRequests = (server: IServer) =>
+    ajax.getJSON<IWiremockRequestsResponse>(buildApiUrl(server, '/requests'))
